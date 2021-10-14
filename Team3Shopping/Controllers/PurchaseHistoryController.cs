@@ -34,7 +34,7 @@ namespace Team3Shopping.Controllers
             // obtain list of sessions.
             List<Session> sessions = dbContext.Sessions.Where(x =>
                 x.Id != null).ToList();
-            User userId;
+            User userId = null;
 
             // query Sessions and get User where UserId == session userId
             foreach (Session s in sessions)
