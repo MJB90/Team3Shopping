@@ -11,36 +11,21 @@ namespace Team3Shopping.Models
         public User()
         {
             Id = new Guid();
-            Purchases = new List<Purchases>();
+            Cart = new List<Cart>();
+            Purchase = new List<Purchase>();
+            Session = new List<Session>();
         }
 
-        public Guid Id { get; set; }
+        public Guid Id { set; get; }
         [Required]
         [MaxLength(32)]
-        public string Username { get; set; }
-
+        public string Username { get; set;}
         [Required]
-        [MaxLength(32)]
-        public string Password { get; set; }
+        public byte[] PassHash { get; set; }
 
-        [Required]
-        [MaxLength(32)]
-        public string FirstName { get; set; }
-
-        [Required]
-        [MaxLength(32)]
-        public string LastName { get; set; }
-
-        [Required]
-        [EmailAddress]
-        [MaxLength(32)]
-        public string Email { get; set; }
-
-        //Below line is required to maintain one to one relationship with Cart
-        public virtual Cart Cart { get; set; }
-
-        //Below line is required to maintain one to many relationship with Purchases
-        public virtual ICollection<Purchases> Purchases { get; set; }
-
+        public virtual ICollection<Cart> Cart { get; set; }
+        public virtual ICollection<Purchase> Purchase { get; set; }
+        public virtual ICollection<Session> Session { get; set; }
     }
+        
 }

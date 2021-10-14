@@ -8,16 +8,10 @@ namespace Team3Shopping.Models
 {
     public class Cart
     {
-        public Cart()
-        {
-          Id = new Guid();
-        }
-        public Guid Id { get; set; }
-        public int quantity;
+        public virtual Guid UserId { get; set; }
+        public virtual Guid ProductId { get; set; }
 
-        //Both line 20 & 21 are required to establish one to one relationship with user
-        public virtual Guid UserId { get; set; } 
-        public virtual User User { get; set; }
+        public int AddToCartProductQuantity { get; set; }
 
     }
 }
