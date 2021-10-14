@@ -14,8 +14,8 @@ body {
 
 .shopping-cart {
     width: 750px;
-    height: 423px;
-    margin: 80px auto;
+    height: auto;
+    margin: 60px auto;
     background: #FFFFFF;
     box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
     border-radius: 6px;
@@ -50,19 +50,20 @@ body {
     margin-right: 60px;
 }
 
-.delete-btn {
+/*.delete-btn {
     display: inline-block;
     cursor: pointer;
     width: 18px;
     height: 17px;
     background: url("/Image/Cart/delete-icn.svg") no-repeat center;
     margin-right: 20px;
-}
+}*/
+
 
 .like-btn {
     position: absolute;
     top: 9px;
-    left: 15px;
+    left: -15px;
     display: inline-block;
     background: url('/Image/Cart/twitter-heart.png');
     width: 60px;
@@ -101,9 +102,9 @@ body {
 
 /* Product Description */
 .description {
-    padding-top: 10px;
-    margin-right: 60px;
-    width: 115px;
+    padding-top: 8px;
+    margin-right: 20px;
+    width: 150px;
 }
 
     .description span {
@@ -114,19 +115,19 @@ body {
     }
 
         .description span:first-child {
-            margin-bottom: 5px;
+            margin-bottom: 2px;
         }
 
         .description span:last-child {
             font-weight: 300;
-            margin-top: 8px;
+            margin-top: 4px;
             color: #86939E;
         }
 
 /* Product Quantity */
 .quantity {
     padding-top: 20px;
-    margin-right: 60px;
+    margin-right: 30px;
 }
 
     .quantity input {
@@ -147,13 +148,27 @@ button[class*=btn] {
     border: none;
     cursor: pointer;
 }
+/*Remove*/
+.remove {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 12px;
+    font-family: roboto;
+    color: #acb4c2;
+}
+.remove:hover {
+    color: red;
+}
+
 
 .minus-btn img {
     margin-bottom: 3px;
 }
 
 .plus-btn img {
-    margin-top: 2px;
+    margin-top: -2px;
+
 }
 
 button:focus,
@@ -161,14 +176,15 @@ input:focus {
     outline: 0;
 }
 
-/* Total Price */
-.total-price {
+/*Price */
+.price {
     width: 83px;
     padding-top: 27px;
     text-align: center;
     font-size: 16px;
     color: #43484D;
     font-weight: 300;
+    margin-right:-10px;
 }
 
 /* Responsive */
