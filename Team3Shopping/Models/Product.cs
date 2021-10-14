@@ -11,11 +11,13 @@ namespace Team3Shopping.Models
     {
         public Product()
         {
-            ProductId = new Guid();
+            Id = new Guid();
+            PurchaseProducts = new List<PurchaseProducts>();
+            Cart = new List<Cart>();
         }
 
         [Key]
-        public Guid ProductId { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(32)]
@@ -35,5 +37,10 @@ namespace Team3Shopping.Models
         [Required]
         [MaxLength(32)]
         public string ProductCategory { get; set; }
+
+        //one to many relationship with purchase products
+        public virtual ICollection<PurchaseProducts> PurchaseProducts { get; set; }
+        //one to many relationship with cart
+        public virtual ICollection<Cart> Cart { get; set; }
     }
 }

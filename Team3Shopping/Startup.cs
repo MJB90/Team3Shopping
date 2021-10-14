@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Team3Shopping.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Team3Shopping
 {
@@ -24,10 +27,16 @@ namespace Team3Shopping
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // add our database context into DI container
+            services.AddDbContext<myDBContext>(opt =>
+                opt.UseLazyLoadingProxies().UseSqlServer(
+                    Configuration.GetConnectionString("db_conn"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,[FromServices] myDBContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -52,6 +61,18 @@ namespace Team3Shopping
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DB db = new DB(dbContext);
+
+            if (!dbContext.Database.CanConnect())
+            {
+                // ensure that database has been created
+                // before moving pass this line
+                dbContext.Database.EnsureCreated();
+
+                // seed the database
+               // db.Seed();
+            }
         }
     }
 }

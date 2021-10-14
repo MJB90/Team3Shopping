@@ -13,5 +13,9 @@ namespace Team3Shopping.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<Purchases> Purchases { get; set; }
+        public DbSet<PurchaseProducts> PurchaseProducts { get; set; }
+
     }
 }

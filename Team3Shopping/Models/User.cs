@@ -10,10 +10,12 @@ namespace Team3Shopping.Models
     {
         public User()
         {
+            Id = new Guid();
+            Purchases = new List<Purchases>();
         }
 
+        public Guid Id { get; set; }
         [Required]
-        [Key]
         [MaxLength(32)]
         public string Username { get; set; }
 
@@ -33,6 +35,12 @@ namespace Team3Shopping.Models
         [EmailAddress]
         [MaxLength(32)]
         public string Email { get; set; }
+
+        //Below line is required to maintain one to one relationship with Cart
+        public virtual Cart Cart { get; set; }
+
+        //Below line is required to maintain one to many relationship with Purchases
+        public virtual ICollection<Purchases> Purchases { get; set; }
 
     }
 }
