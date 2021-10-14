@@ -62,7 +62,15 @@ namespace Team3Shopping
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            DB db = new DB(dbContext);
+            if (!dbContext.Database.CanConnect())
+            {
+                dbContext.Database.EnsureCreated();
+
+                DB db = new DB(dbContext);
+                db.Seed();
+            }
+
+            /*DB db = new DB(dbContext);
 
             if (!dbContext.Database.CanConnect())
             {
@@ -71,8 +79,8 @@ namespace Team3Shopping
                 dbContext.Database.EnsureCreated();
 
                 // seed the database
-               // db.Seed();
-            }
+                db.Seed();
+            }*/
         }
     }
 }

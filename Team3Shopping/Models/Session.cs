@@ -17,7 +17,7 @@ namespace Team3Shopping.Models
         [Required]
         public long Timestamp { get; set; }
 
-        public virtual Guid UserId { get; set; }
+        public virtual string UserId { get; set; }
 
         public virtual User User { get; set; }
     }
