@@ -8,7 +8,7 @@ namespace Team3Shopping.Models
 {
     public class Cart
     {
-        public virtual Guid UserId { get; set; }
+        public virtual string UserId { get; set; }
         public virtual Guid ProductId { get; set; }
 
         public int AddToCartProductQuantity { get; set; }
