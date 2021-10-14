@@ -27,7 +27,7 @@ function AddToCartClick(event) {
     };
 
     let addProduct = {
-        "ProductId": target.id  //assign ProductID in a JS object
+        "Id": target.id  //assign ProductID in a JS object
     };
     xhr.send(JSON.stringify(addProduct)); //Convert JS object to JSON and send via AJAX
 }
