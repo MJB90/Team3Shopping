@@ -10,18 +10,23 @@ namespace Team3Shopping.Models
     {
         public User()
         {
-            Id = new Guid();
             Cart = new List<Cart>();
             Purchase = new List<Purchase>();
             Session = new List<Session>();
         }
-
-        public Guid Id { set; get; }
         [Required]
         [MaxLength(32)]
-        public string Username { get; set;}
+        [MinLength(6)]
+        [EmailAddress]
+        public string Id { set; get; }
+       
         [Required]
-        public byte[] PassHash { get; set; }
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+        
+        public string FirstName { get; set; }
+        
+        public string LastName { get; set; }
 
         public virtual ICollection<Cart> Cart { get; set; }
         public virtual ICollection<Purchase> Purchase { get; set; }

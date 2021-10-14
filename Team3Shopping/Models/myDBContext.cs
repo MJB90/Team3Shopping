@@ -14,6 +14,8 @@ namespace Team3Shopping.Models
 
         protected override void OnModelCreating(ModelBuilder model)
         {
+            model.Entity<User>().HasIndex(u => u.Id).IsUnique();
+
             model.Entity<Cart>().HasKey(sc => new { sc.UserId, sc.ProductId });
         }
 
