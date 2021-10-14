@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Team3Shopping.Models
 {
-    public class Product
+    public class Purchase
     {
-        public Product()
+        public Purchase()
         {
             Id = new Guid();
             Cart = new List<Cart>();
