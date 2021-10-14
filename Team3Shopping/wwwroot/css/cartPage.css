@@ -14,8 +14,8 @@ body {
 
 .shopping-cart {
     width: 750px;
-    height: 423px;
-    margin: 80px auto;
+    height: auto;
+    margin: 60px auto;
     background: #FFFFFF;
     box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
     border-radius: 6px;
@@ -154,7 +154,8 @@ button[class*=btn] {
     background-color: transparent;
     outline: none;
     font-size: 12px;
-    font-family:roboto;
+    font-family: roboto;
+    color: #acb4c2;
 }
 .remove:hover {
     color: red;
@@ -166,7 +167,7 @@ button[class*=btn] {
 }
 
 .plus-btn img {
-    margin-top: 2px;
+    margin-top: -2px;
 
 }
 
@@ -175,8 +176,8 @@ input:focus {
     outline: 0;
 }
 
-/* Total Price */
-.total-price {
+/*Price */
+.price {
     width: 83px;
     padding-top: 27px;
     text-align: center;
