@@ -10,6 +10,10 @@ namespace Team3Shopping.Models
     {
         public myDBContext(DbContextOptions<myDBContext> options) : base (options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder model)
+        {
             model.Entity<Cart>().HasKey(sc => new { sc.UserId, sc.ProductId });
         }
 
