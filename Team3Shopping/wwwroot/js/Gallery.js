@@ -1,18 +1,23 @@
-﻿window.onload = functions()
-{
-    /* setup event listeners for add to cart buttons */
-    let elems = document.getElementsByClassName("addtocart_btn"); //​get all add to cart buttons
+﻿
+
+window.onload = function () {
+    /* setup event listeners for tasks selection */
+
+    let elems = document.getElementsByClassName("addtocart_btn"); //all task box elements
     for (let i = 0; i < elems.length; i++) {
-        elems[i].addEventListener('click', AddToCartClick);    //addEventListener upon clicking "Add To Cart"
+        elems[i].addEventListener('click', AddToCartClick);    //addListener after DOM is ready
     }
+
 }
 
+
 function AddToCartClick(event) {
+
     let target = event.currentTarget; //get target of current clicked button
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open("Post", "/Gallery/AddToCart"); //Direct this AJAX request to GalleryController, AddToCart action method
+    xhr.open("POST", "/Gallery/AddToCart"); //Direct this AJAX request to GalleryController, AddToCart action method
     xhr.setRequestHeader("Content-Type", "application/json; charset=utf8");
 
     xhr.onreadystatechange = function () { //upon receiving AJAX response, do following
@@ -35,5 +40,5 @@ function AddToCartClick(event) {
 
 function UpdateCartCounter(cartCount) {
     let elem = document.getElementById("cartCounter"); //get the counter element from HTML
-    elem.value = cartCount; //change the value of the cart Counter
+    elem.innerHTML = cartCount; //change the value of the cart Counter
 }
