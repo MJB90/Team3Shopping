@@ -19,7 +19,7 @@ namespace Team3Shopping.Controllers
         {
             this.dBContext = dBContext;
         }
-        public IActionResult Index()
+        public IActionResult Index(string username,string error_message)
         {
             if (Request.Cookies["SessionId"] != null)
             {
@@ -38,6 +38,11 @@ namespace Team3Shopping.Controllers
                 return RedirectToAction("Index", "Product");
             }
 
+            if(username != null)
+            {
+                ViewData["username"] = username;
+                ViewData["error_message"] = error_message;
+            }
             // no Session ID; show Login page
             return View();
         }
@@ -52,12 +57,13 @@ namespace Team3Shopping.Controllers
 
             if (user == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login", new { username = username , error_message = "Please enter valid email/password" } );
             }
 
             // create a new session and tag to user
             Session session = new Session()
             {
+                
                 User = user
             };
             dBContext.Sessions.Add(session);

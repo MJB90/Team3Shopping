@@ -19,6 +19,7 @@ namespace Team3Shopping
         {
             SeedUsers();
             SeedProducts();
+            SeedCart();
         }
 
         public void SeedUsers()
