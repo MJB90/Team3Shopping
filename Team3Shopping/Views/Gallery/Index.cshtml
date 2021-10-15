@@ -9,8 +9,8 @@
     <link href="~/css/productList.css" rel="stylesheet" />
 }
 
-@section Scripts{ 
-    <script scr =" ~/js/Gallery.js"></script>
+@section Scripts {
+    <script src="~/js/Gallery.js"></script>
 }
 
 <!-- Header-->
@@ -18,7 +18,7 @@
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">Shop in style</h1>
-            <h1 class="cartCounter">@currCount</h1>
+            <div id="cartCounter"> @currCount </div>
             <p class="lead fw-normal text-white-50 mb-0">WhiteStar Shopping</p>
         </div>
     </div>
@@ -54,14 +54,15 @@
                             <!-- Product actions-->
 
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><button type="button" class="addtocart_btn">Add to Cart</button></div>
+                                <div class="text-center"><button type="button" id=@myproduct.Id class="addtocart_btn">Add to Cart </button></div>
                             </div>
                         </div>
                     </div>
 
 
 
-                 
+
+
                 }
 
                 @if (products.Count == 0)
@@ -69,6 +70,6 @@
                 {@:There are no matching product.
                 }
             </div>
-                </div>
+        </div>
     </section>
 </div>
