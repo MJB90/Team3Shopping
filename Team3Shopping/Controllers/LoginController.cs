@@ -35,7 +35,7 @@ namespace Team3Shopping.Controllers
                 }
 
                 // valid Session ID; route to landing page "Action Method", "Controller"
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("Index", "Gallery");
             }
 
             if(username != null)

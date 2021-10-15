@@ -22,8 +22,9 @@ namespace Team3Shopping
             }
 
             Guid sessionId = Guid.Parse(Request.Cookies["SessionId"]);
+            long currTimeStamp = DateTimeOffset.Now.ToUnixTimeSeconds();
             Session session = dBContext.Sessions.FirstOrDefault(x =>
-                x.Id == sessionId
+                x.Id == sessionId && currTimeStamp - x.Timestamp <= (SessionTimeout*60)
             );
 
             return session;
