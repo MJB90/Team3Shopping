@@ -32,3 +32,11 @@ $('.plus-btn').on('click', function (e) {
 
 $input.val(value);
 });
+
+$(document).ready(function () {
+
+    $('.radio-group .radio').click(function () {
+        $('.radio').addClass('gray');
+        $(this).removeClass('gray');
+    });
+});
