@@ -30,7 +30,7 @@ namespace Team3Shopping.Controllers
 
             // 1 user id has many sessions
             // login -> session generated.
-                        
+
             // obtain list of sessions.
             List<Session> sessions = dbContext.Sessions.Where(x =>
                 x.Id != null).ToList();
@@ -41,25 +41,25 @@ namespace Team3Shopping.Controllers
             {
                 userId = dbContext.Users.FirstOrDefault(x => x.Id == s.UserId);
             }
-            
-        
+
+
             // obtain list of all purchases
             // tbc: how to pass in userId object into Where method?
             List<Purchase> purchaseList = dbContext.Purchases.Where(x =>
-                x.UserId == (userId.Id)).ToList();
-            
+                x.UserId == (userId.Id)).ToList();           
 
-            List<PurchaseProduct> purProdList = new List<PurchaseProduct>();            
+
+            List<PurchaseProduct> purProdList = new List<PurchaseProduct>();
             foreach (Purchase p in purchaseList)
             {
                 PurchaseProduct purProd = dbContext.PurchaseProducts.FirstOrDefault(x =>
                  x.PurchaseId == p.Id);
                 if (purProdList != null)
                 {
-                    purProdList.Add(purProd);                  
+                    purProdList.Add(purProd);
                 }
             }
-          
+
             List<Product> productList = new List<Product>();
             List<string> activationCodeList = new List<string>();
             foreach (PurchaseProduct pp in purProdList)
@@ -77,6 +77,12 @@ namespace Team3Shopping.Controllers
             ViewData["purchases"] = purchaseList;
             ViewData["activationCodes"] = activationCodeList;
             ViewData["quantity"] = activationCodeList.Count;
+            return View();
+        }
+
+        public IActionResult Test()
+        {
+            ViewData["Title"] = "My Purchase";
             return View();
         }
     }
