@@ -75,10 +75,6 @@ namespace Team3Shopping.Controllers
             Response.Cookies.Append("Username", user.Id);
             return RedirectToAction("Index", "Product");
 
-
-
-
-
         }
 
 
