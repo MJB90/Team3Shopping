@@ -44,7 +44,6 @@ namespace Team3Shopping.Controllers
                 }
             }
 
-
             ViewData["product"] = products;
             ViewData["user"] = users;
             ViewData["cart"] = carts;
