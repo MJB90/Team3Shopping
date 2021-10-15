@@ -46,7 +46,7 @@ namespace Team3Shopping.Controllers
             // obtain list of all purchases
             // tbc: how to pass in userId object into Where method?
             List<Purchase> purchaseList = dbContext.Purchases.Where(x =>
-                x.UserId == Guid.Parse(userId.Id)).ToList();
+                x.UserId == (userId.Id)).ToList();
             
 
             List<PurchaseProduct> purProdList = new List<PurchaseProduct>();            
