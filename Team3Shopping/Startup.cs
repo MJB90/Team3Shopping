@@ -55,13 +55,6 @@ namespace Team3Shopping
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Login}/{action=Index}/{id?}");
-            });
-
             if (!dbContext.Database.CanConnect())
             {
                 dbContext.Database.EnsureCreated();
@@ -69,6 +62,24 @@ namespace Team3Shopping
                 DB db = new DB(dbContext);
                 db.Seed();
             }
+            else
+            
+            app.UseMiddleware<CartCounter>();
+
+            
+            
+
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
+            });
+
+
+
+
 
             /*DB db = new DB(dbContext);
 
