@@ -73,14 +73,13 @@ function ChangeQuantity(event) {
     updateCartTotal();
 }
 
-function checkIsProductDeleted(userId, productId, addToCartProductQuantity) {
+function checkIsProductDeleted(userId, productId) {
     $.ajax({
         type: "POST",
         url: "/Cart/Remove",
         data: {
             UserId: userId,
             ProductId: productId,
-            AddToCartProductQuantity: addToCartProductQuantity
         },
         dataType: "json",
         success: function () {
