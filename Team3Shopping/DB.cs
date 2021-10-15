@@ -122,13 +122,13 @@ namespace Team3Shopping
 
 
 
-            Cart newCartItem = new Cart { AddToCartProductQuantity = 2 };
+            Cart newCartItem2 = new Cart { AddToCartProductQuantity = 2 };
 
-            Product thisProduct = dbContext.Products.FirstOrDefault(x => x.ProductName == "Zoom");
-            User thisUser = dbContext.Users.FirstOrDefault(x => x.Id == "test@hotmail.com");
+            Product thisProduct2 = dbContext.Products.FirstOrDefault(x => x.ProductName == "Zoom");
+            User thisUser2 = dbContext.Users.FirstOrDefault(x => x.Id == "test@hotmail.com");
 
-            thisProduct.Cart.Add(newCartItem); //add new Cart row to the product's ICollection
-            thisUser.Cart.Add(newCartItem); //add new Cart row to the users's ICollection
+            thisProduct2.Cart.Add(newCartItem2); //add new Cart row to the product's ICollection
+            thisUser2.Cart.Add(newCartItem2); //add new Cart row to the users's ICollection
 
             dbContext.SaveChanges();
         }

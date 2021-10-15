@@ -21,7 +21,7 @@ namespace Team3Shopping.Controllers
         public IActionResult Index(string searchString)
         {
             //get current User, currently set to null.
-            User thisUser = null;
+            User thisUser = dBContext.Users.FirstOrDefault(x => x.Id == "test@hotmail.com");
 
             //For first access, to change null into empty string to show all product
             if (searchString == null) { searchString = ""; }
@@ -42,7 +42,8 @@ namespace Team3Shopping.Controllers
                x.ProductCategory.Contains(searchString)
                ).ToList();
 
-            int currCount = CountCartItems(thisUser);
+            //int currCount = CountCartItems(thisUser);
+            int currCount = 0;
 
             //pushing the data into gallery view
             ViewData["searchString"] = searchString;
@@ -55,8 +56,9 @@ namespace Team3Shopping.Controllers
         public IActionResult AddToCart([FromBody] Product addProduct)
         {
             //get current User, currently set to null.
-            User thisUser = null;
-            
+            User thisUser = dBContext.Users.FirstOrDefault(x => x.Id == "test@hotmail.com");
+
+
             Guid addProductId = addProduct.Id; //extract the current product ID to be added
             //alternative: Guid addProductId = Guid.Parse(addProduct.Id) to parse into GUID
 
