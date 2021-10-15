@@ -52,12 +52,15 @@ namespace Team3Shopping.Controllers
 
             if (user == null)
             {
+                ViewData["username"] = username;
+                ViewData["error_message"] = "Invalid username/password";
                 return RedirectToAction("Index", "Login");
             }
 
             // create a new session and tag to user
             Session session = new Session()
             {
+                
                 User = user
             };
             dBContext.Sessions.Add(session);
