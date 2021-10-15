@@ -49,7 +49,7 @@ namespace Team3Shopping.Controllers
             //pushing the data into gallery view
             ViewData["searchString"] = searchString;
             ViewData["products"] = products;
-            ViewData["cartCounter"] = currCount;
+            //ViewData["cartCounter"] = currCount;
 
             Debug.WriteLine("1. returning view on landing");
             return View();
@@ -66,10 +66,12 @@ namespace Team3Shopping.Controllers
 
         public IActionResult AddToCart([FromBody] Product addProduct)
         {
-            Debug.WriteLine("1. Reached AddToCart Action Method");
+            string sessionId = HttpContext.Request.Cookies["SessionId"]; //retrieve the sessionId from the context (assuming already authenticated)
 
             //get current User, currently set to null.
-            User thisUser = dBContext.Users.FirstOrDefault(x => x.Id == "test@hotmail.com");
+            Session thisSession = dBContext.Sessions.FirstOrDefault(x => x.Id == Guid.Parse(sessionId)); //get the session object in DB from current sessionId
+            User thisUser = dBContext.Users.FirstOrDefault(x => x.Id == thisSession.UserId); //get the user object in DB from current session object
+
 
 
             Guid addProductId = addProduct.Id; //extract the current product ID to be added

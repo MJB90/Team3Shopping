@@ -2,7 +2,7 @@
     ViewData["Title"] = "Gallery";
     string searchString = (string)ViewData["searchString"];
     List<Product> products = (List<Product>)ViewData["products"];
-    int currCount = (int)ViewData["cartCounter"];
+    //int currCount = (int)ViewData["cartCounter"];
 }
 
 @section Css{
@@ -18,7 +18,6 @@
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">Shop in style</h1>
-            <div id="cartCounter"> @currCount </div>
             <p class="lead fw-normal text-white-50 mb-0">WhiteStar Shopping</p>
         </div>
     </div>
