@@ -28,9 +28,9 @@
                     <!--<span class="delete-btn"></span> -->
                     <span class="like-btn"></span>
                 </div>
-
+                <!--Product Image -->
                 <div class="image">
-                    <img src="@products[i].ProductImage" alt="" />
+                    <img src="@products[i].ProductImage" width="120" height="80" alt="" />
                 </div>
 
                 <div class="description">
@@ -41,7 +41,7 @@
 
                 <div class="quantity">
                     <button class="plus-btn" type="button" name="button">
-                        <img src="/Image/Cart/plus.svg" alt="" />
+                        <img src="/Image/Cart/plus.svg"  alt="" />
                     </button>
                     <input type="text" name="name" id="@carts[i].ProductId" value="@carts[i].AddToCartProductQuantity">
                     <button class="minus-btn" type="button" name="button">

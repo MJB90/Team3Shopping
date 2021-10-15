@@ -49,8 +49,8 @@ namespace Team3Shopping.Controllers
             ViewData["cart"] = carts;
             return View();
         }
-
-        public IActionResult Remove( string UserId , string ProductId , string AddToCartProductQuantity)
+        [HttpPost]
+        public IActionResult Remove(string UserId,string ProductId,string AddToCartProductQuantity)
         {
             Guid productId = Guid.Parse(ProductId);
             //Update carts database

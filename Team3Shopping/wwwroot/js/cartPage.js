@@ -46,15 +46,17 @@ $(document).ready(function () {
 window.onload = function () {
     let elems = document.getElementsByClassName("item");
     for (let i = 0; i < elems.length; i++) {
-        elems[i].childNodes[3].lastChild.addEventListener('click', RemoveProduct);
-        elems[i].childNodes[3].childNodes[1].addEventListener('change', ChangeQuantity);
+        elems[i].addEventListener('click', RemoveProduct);
+        elems[i].addEventListener('change', ChangeQuantity);
     }
 }
 
 function RemoveProduct(event) {
     let target = event.currentTarget;
-    let number = document.getElementById(target.className.substring(7)).value;
-    checkIsProductDeleted(target.id, target.className.substring(7),number);
+    let number = document.getElementById(target.className.substring(5)).value;
+    alert(number)
+    alert(target.className.substring(5))
+    checkIsProductDeleted(target.id, target.className.substring(5),number);
     target.remove();
     updateTotalPrice();
 }
@@ -74,7 +76,7 @@ function ChangeQuantity(event) {
 function checkIsProductDeleted(userId, productId, addToCartProductQuantity) {
     $.ajax({
         type: "POST",
-        url: '@Url.Action("Remove","Cart")',
+        url: "/Cart/Remove",
         data: {
             UserId: userId,
             ProductId: productId,
@@ -82,13 +84,13 @@ function checkIsProductDeleted(userId, productId, addToCartProductQuantity) {
         },
         dataType: "json",
         success: function () {
-            alert("Product has been removed from the cart!")
+            alert("success")
         },
         error: function () {
-            alert("Something went wrong!")
+            alert("error")
         }
     })
-}
+    };
 
 function ChangeQuantityInDB(userId, productId, productQuantity) {
     $.ajax({

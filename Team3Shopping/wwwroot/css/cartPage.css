@@ -99,6 +99,9 @@ body {
 /* Product Image */
 .image {
     margin-right: 50px;
+    width:120px;
+    height:80px;
+    object-fit:fill;
 }
 
 /* Product Description */
@@ -238,7 +241,7 @@ input:focus {
     box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2)
 }
 
-input[type="text"], textarea {
+form-control-label, textarea {
     background-color: #e7f4f4;
     padding: 8px 15px 8px 15px;
     width: 100%;
@@ -249,9 +252,8 @@ input[type="text"], textarea {
     color: #000 !important;
     font-weight: 300
 }
-
-input[type="text"]:focus,
-textarea:focus{
+form-control-label:focus,
+textarea:focus {
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
