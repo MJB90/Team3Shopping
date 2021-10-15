@@ -38,7 +38,7 @@ namespace Team3Shopping
                 FirstName = "Cher Wah",
                 LastName = "Tan"
             });
-            dBContext.Add(new User
+            dbContext.Add(new User
             {
                 Id = "tinandcopper55@hotmail.com",
                 Password = "password",
