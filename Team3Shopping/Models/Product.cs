@@ -30,8 +30,6 @@ namespace Team3Shopping.Models
         [Required]
         [MaxLength(32)]
         public string ProductCategory { get; set; }
-        [Required]
-        public int ProductQuantity { get; set; }
 
         public virtual ICollection<Cart> Cart { get; set; }
         public virtual ICollection<PurchaseProduct> PurchaseProduct { get; set; }

@@ -49,18 +49,29 @@ namespace Team3Shopping.Controllers
             //pushing the data into gallery view
             ViewData["searchString"] = searchString;
             ViewData["products"] = products;
-            ViewData["cartCounter"] = currCount;
+            //ViewData["cartCounter"] = currCount;
 
             Debug.WriteLine("1. returning view on landing");
             return View();
         }
 
+
+        public IActionResult Product(string thisProductName) // --> localhost/Gallery/Product/{id?}
+        {
+            Product thisProduct = dBContext.Products.FirstOrDefault(x => x.ProductName == thisProductName);
+            ViewData["thisProduct"] = thisProduct;
+            //--- query product and send to View()
+            return View();
+        }
+
         public IActionResult AddToCart([FromBody] Product addProduct)
         {
-            Debug.WriteLine("1. Reached AddToCart Action Method");
+            string sessionId = HttpContext.Request.Cookies["SessionId"]; //retrieve the sessionId from the context (assuming already authenticated)
 
             //get current User, currently set to null.
-            User thisUser = dBContext.Users.FirstOrDefault(x => x.Id == "test@hotmail.com");
+            Session thisSession = dBContext.Sessions.FirstOrDefault(x => x.Id == Guid.Parse(sessionId)); //get the session object in DB from current sessionId
+            User thisUser = dBContext.Users.FirstOrDefault(x => x.Id == thisSession.UserId); //get the user object in DB from current session object
+
 
 
             Guid addProductId = addProduct.Id; //extract the current product ID to be added
@@ -98,6 +109,9 @@ namespace Team3Shopping.Controllers
 
             return Json(new { cartCounter = currCount }); //send Json object in AJAX response 
         }
+
+
+
 
         public int CountCartItems(User thisUser)
         {

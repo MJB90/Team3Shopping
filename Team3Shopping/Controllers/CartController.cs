@@ -49,33 +49,27 @@ namespace Team3Shopping.Controllers
             ViewData["cart"] = carts;
             return View();
         }
-
-        public IActionResult Remove( string UserId , string ProductId , string AddToCartProductQuantity)
+        [HttpPost]
+        public IActionResult Remove(string UserId,string ProductId)
         {
             Guid productId = Guid.Parse(ProductId);
             //Update carts database
             Cart cart = dbContext.Carts.FirstOrDefault(x =>
               x.ProductId == productId && x.UserId == UserId);
-            cart.AddToCartProductQuantity -= Convert.ToInt32(AddToCartProductQuantity);
-
-            //Update products database
-            Product product = dbContext.Products.FirstOrDefault(x =>
-              x.Id == productId);
-            product.ProductQuantity += Convert.ToInt32(AddToCartProductQuantity);
+            cart.AddToCartProductQuantity = 0;
 
             dbContext.SaveChanges();
             return Json(new { successfullyUpdateDatabase = true });
         }
         //Update products and carts database
+        [HttpPost]
         public IActionResult EditQuantity(string UserId, string ProductId, string ProductQuantity)
         {
-            Product product = dbContext.Products.FirstOrDefault(x => x.Id == Guid.Parse(ProductId));
-
+            Guid productId = Guid.Parse(ProductId);
             Cart cart = dbContext.Carts.FirstOrDefault(x =>
-            x.UserId == UserId && x.ProductId == Guid.Parse(ProductId));
-
-            product.ProductQuantity += (cart.AddToCartProductQuantity - Convert.ToInt32(ProductQuantity));
-            cart.AddToCartProductQuantity -= (cart.AddToCartProductQuantity - Convert.ToInt32(ProductQuantity));
+            x.UserId == UserId && x.ProductId == productId);
+            int productQuantity = Int32.Parse(ProductQuantity);
+            cart.AddToCartProductQuantity =productQuantity;
 
             dbContext.SaveChanges();
             return Json(new { data = true  });
@@ -84,7 +78,7 @@ namespace Team3Shopping.Controllers
         //Redirect to the purhase is been made page
         public IActionResult PurchaseDone()
         {
-            //Do some validations of the payment
+            //Do some validations of the payment method
             //Omitted for brevity
             return View();
         }

@@ -73,7 +73,7 @@ namespace Team3Shopping.Controllers
             // ask browser to save and send back these cookies next time
             Response.Cookies.Append("SessionId", session.Id.ToString());
             Response.Cookies.Append("Username", user.Id);
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("Index", "Gallery");
 
         }
 

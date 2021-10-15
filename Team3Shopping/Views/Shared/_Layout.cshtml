@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string cartCount = "0";
+    if (Context.Request.Cookies["SessionId"] == null)
+        cartCount = "00";
+    else
+        if(Context.Items["cartCount"] != null) //somehow this is null on the first login, and shows as 0 (default val above). 
+            cartCount = (string) Context.Items["cartCount"].ToString(); //but this is ok on second and third logins
+
+ }
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -54,7 +64,7 @@
                         </form>
 
                         <a href="/Cart/ToCart" class="btn btn-info btn-lg">
-                            <span class="glyphicon glyphicon-shopping-cart"></span>  Cart
+                            <span class="glyphicon glyphicon-shopping-cart"></span>  Cart  (<strong><span id="cartCounter">@cartCount</span></strong>)
                         </a>
                     </div>
                 </div>

@@ -74,7 +74,6 @@ namespace Team3Shopping
                 ProductPrice = 200,
                 ProductImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Visual_Studio_Icon_2019.svg/1920px-Visual_Studio_Icon_2019.svg.png?fbclid=IwAR0S3eTMNDMYfnYsAe24caF7o-ctj4kgC4YMku9yo-KDEWe0pS6mnzDEw50",
                 ProductCategory = "Software",
-                ProductQuantity = 100
             });
 
             dbContext.Add(new Product
@@ -84,7 +83,6 @@ namespace Team3Shopping
                 ProductPrice = 300,
                 ProductImage = "https://upload.wikimedia.org/wikipedia/commons/5/5f/Microsoft_Office_logo_%282019%E2%80%93present%29.svg?fbclid=IwAR28G4cNfQwhzu2y6bo5XVelgOQwvm0KHisUwJz3tVWdYDH2HE6pRG1XE4s",
                 ProductCategory = "Software",
-                ProductQuantity = 100
             });
 
             dbContext.Add(new Product
@@ -94,7 +92,6 @@ namespace Team3Shopping
                 ProductPrice = 30,
                 ProductImage = "https://chromeunboxed.com/wp-content/uploads/2020/12/zoom-feature-december-2020.png?ezimgfmt=ng%3Awebp%2Fngcb53%2Frs%3Adevice%2Frscb53-1&fbclid=IwAR18JrhDn3rf1ttZjY9bvd5ZvZ0oJ1ALxpkEzv7tKZ-lf_RCn2MAuwoJtY8",
                 ProductCategory = "Software",
-                ProductQuantity = 100
             });
 
             dbContext.Add(new Product
@@ -104,7 +101,6 @@ namespace Team3Shopping
                 ProductPrice = 20,
                 ProductImage = "https://cdn.akamai.steamstatic.com/steam/apps/728880/header.jpg?t=1608812250&fbclid=IwAR2cgPgHeCl3Ac96j5LhiWTfkDloYEwmRSiayjBAplXLznqGea0OPcr95OI",
                 ProductCategory = "Software",
-                ProductQuantity = 100
             });
             dbContext.SaveChanges();
         }
