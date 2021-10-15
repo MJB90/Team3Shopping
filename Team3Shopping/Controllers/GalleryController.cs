@@ -56,9 +56,9 @@ namespace Team3Shopping.Controllers
         }
 
 
-        public IActionResult Product(Guid thisProductId) // --> localhost/Gallery/Product/{id?}
+        public IActionResult Product(string thisProductName) // --> localhost/Gallery/Product/{id?}
         {
-            Product thisProduct = dBContext.Products.FirstOrDefault(x => x.Id == thisProductId);
+            Product thisProduct = dBContext.Products.FirstOrDefault(x => x.ProductName == thisProductName);
             ViewData["thisProduct"] = thisProduct;
             //--- query product and send to View()
             return View();
