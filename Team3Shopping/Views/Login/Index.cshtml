@@ -29,6 +29,13 @@
 @section Css{
     <link href="~/css/login.css" rel="stylesheet" />
 }
+
+@{ 
+    string username = "", error_message = "";
+    username = (String)ViewData["username"];
+    error_message = (String)ViewData["error_message"];
+
+}
 <form action="/Login/Login" method="POST">
     <div class="page">
         <div class="container">
@@ -59,7 +66,7 @@
 
                 <div class="form">
                     <label for="email">Email</label>
-                    <input type="email"name="username" id="email">
+                    <input type="email"name="username" id="email" value=@username>
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password">
                     <input type="submit" id="submit" value="Login">
