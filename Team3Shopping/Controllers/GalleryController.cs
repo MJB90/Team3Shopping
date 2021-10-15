@@ -20,6 +20,9 @@ namespace Team3Shopping.Controllers
 
         public IActionResult Index(string searchString)
         {
+            //get current User, currently set to null.
+            User thisUser = null;
+
             //For first access, to change null into empty string to show all product
             if (searchString == null) { searchString = ""; }
 
@@ -39,9 +42,12 @@ namespace Team3Shopping.Controllers
                x.ProductCategory.Contains(searchString)
                ).ToList();
 
+            int currCount = CountCartItems(thisUser);
+
             //pushing the data into gallery view
             ViewData["searchString"] = searchString;
             ViewData["products"] = products;
+            ViewData["cartCounter"] = currCount;
 
             return View();
         }
@@ -75,12 +81,19 @@ namespace Team3Shopping.Controllers
                 dBContext.SaveChanges(); //persist all changes to DB
             }
 
-            List<Cart> allCartItems = dBContext.Carts.Where(x
-                    => x.UserId == thisUser.Id).ToList(); //now get all current Cart items
 
-            int currCount = allCartItems.Sum(x => x.AddToCartProductQuantity); //sum all the Cart Products
+            int currCount = CountCartItems(thisUser);
+
 
             return Json(new { cartCounter = currCount }); //send Json object in AJAX response 
+        }
+
+        public int CountCartItems(User thisUser)
+        {
+            List<Cart> allCartItems = dBContext.Carts.Where(x => x.UserId == thisUser.Id).ToList(); //now get all current Cart items
+            int currCount = allCartItems.Sum(x => x.AddToCartProductQuantity); //sum all the Cart Products
+
+            return currCount;
         }
 
     }
