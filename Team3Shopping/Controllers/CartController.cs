@@ -14,7 +14,7 @@ namespace Team3Shopping.Controllers
         {
             this.dbContext = dbContext;
         }
-        //Landing action 
+        //This action will bring u to the Cart page 
         public IActionResult ToCart()
         {
             
