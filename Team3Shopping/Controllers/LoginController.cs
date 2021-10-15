@@ -61,6 +61,7 @@ namespace Team3Shopping.Controllers
                 User = user
             };
             dBContext.Sessions.Add(session);
+            dBContext.SaveChanges();
             
 
             // ask browser to save and send back these cookies next time
