@@ -15,7 +15,7 @@ namespace Team3Shopping.Models
         [Required]
         public DateTime PurchaseDate { get; set; }
 
-        public virtual Guid UserId { get; set; }
+        public virtual string UserId { get; set; }
 
         public virtual ICollection<PurchaseProduct> PurchaseProduct { get; set; }
     }

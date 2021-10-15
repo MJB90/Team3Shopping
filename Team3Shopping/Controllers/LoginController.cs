@@ -14,7 +14,7 @@ namespace Team3Shopping.Controllers
     public class LoginController : Controller
     {
         private myDBContext dBContext;
-        
+
         public LoginController(myDBContext dBContext)
         {
             this.dBContext = dBContext;
@@ -46,37 +46,15 @@ namespace Team3Shopping.Controllers
             string username = form["username"];
             string password = form["password"];
 
+            User user = dBContext.Users.FirstOrDefault(x =>
+               x.Id == username &&
+               x.Password == password);
 
-            using (SqlConnection conn = new SqlConnection("Server=localhost; Database=Team3Shoppingdb;Integrated Security=true"))
+            if (user == null)
             {
-                conn.Open();
-                string query = @"SELECT COUNT(1)
-                               FROM Users
-                               WHERE Id=@username AND Password = @password";
-                SqlCommand sqlCmd = new SqlCommand(query, conn);
-                sqlCmd.Parameters.AddWithValue("@username", username);
-                sqlCmd.Parameters.AddWithValue("@password", password);
-                int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-
-                //if count == 1,user input is valid
-                if (count == 1)
-                {   //Create session to tag user
-                    
-                    //redirect to Manny Diego landing page
-                    return RedirectToAction("Index", "Product");
-
-                }
-                else
-                {
-                    return RedirectToAction("Login");
-                }
-                
+                return RedirectToAction("Index", "Login");
             }
 
-          
-        }
-        /*public IActionResult MakeSession()
-        {
             // create a new session and tag to user
             Session session = new Session()
             {
@@ -84,12 +62,19 @@ namespace Team3Shopping.Controllers
             };
             dBContext.Sessions.Add(session);
             dBContext.SaveChanges();
+            
 
             // ask browser to save and send back these cookies next time
             Response.Cookies.Append("SessionId", session.Id.ToString());
             Response.Cookies.Append("Username", user.Id);
+            return RedirectToAction("Index", "Product");
 
-            return RedirectToAction("ProductAction", "Product");
-        }*/
+
+
+
+
+        }
+
+
     }
-}
+    }
