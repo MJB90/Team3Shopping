@@ -107,5 +107,31 @@ namespace Team3Shopping
             });
             dbContext.SaveChanges();
         }
+
+        //seeding cart items to test my page
+        public void SeedCart()
+        {
+            
+            Cart newCartItem = new Cart { AddToCartProductQuantity = 1 };
+
+            Product thisProduct = dbContext.Products.FirstOrDefault(x => x.ProductName == "Microsoft Visual Studio");
+            User thisUser = dbContext.Users.FirstOrDefault(x => x.Id == "test@hotmail.com");
+
+            thisProduct.Cart.Add(newCartItem); //add new Cart row to the product's ICollection
+            thisUser.Cart.Add(newCartItem); //add new Cart row to the users's ICollection
+
+
+
+            Cart newCartItem = new Cart { AddToCartProductQuantity = 2 };
+
+            Product thisProduct = dbContext.Products.FirstOrDefault(x => x.ProductName == "Zoom");
+            User thisUser = dbContext.Users.FirstOrDefault(x => x.Id == "test@hotmail.com");
+
+            thisProduct.Cart.Add(newCartItem); //add new Cart row to the product's ICollection
+            thisUser.Cart.Add(newCartItem); //add new Cart row to the users's ICollection
+
+            dbContext.SaveChanges();
+        }
+
     }
 }
