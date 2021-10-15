@@ -55,6 +55,15 @@ namespace Team3Shopping.Controllers
             return View();
         }
 
+
+        public IActionResult Product(string thisProductName) // --> localhost/Gallery/Product/{id?}
+        {
+            Product thisProduct = dBContext.Products.FirstOrDefault(x => x.ProductName == thisProductName);
+            ViewData["thisProduct"] = thisProduct;
+            //--- query product and send to View()
+            return View();
+        }
+
         public IActionResult AddToCart([FromBody] Product addProduct)
         {
             Debug.WriteLine("1. Reached AddToCart Action Method");
@@ -98,6 +107,9 @@ namespace Team3Shopping.Controllers
 
             return Json(new { cartCounter = currCount }); //send Json object in AJAX response 
         }
+
+
+
 
         public int CountCartItems(User thisUser)
         {
