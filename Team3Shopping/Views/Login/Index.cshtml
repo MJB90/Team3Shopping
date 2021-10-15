@@ -29,10 +29,18 @@
 @section Css{
     <link href="~/css/login.css" rel="stylesheet" />
 }
-
+@section Scripts{ 
+<script type="text/javascript">
+    var message = "@ViewData["error_message"]";
+    if (message.length>5) {
+        alert(message);
+    }
+</script>
+}
 @{ 
     string username = "", error_message = "";
     username = (String)ViewData["username"];
+    
     error_message = (String)ViewData["error_message"];
 
 }
@@ -70,6 +78,7 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password">
                     <input type="submit" id="submit" value="Login">
+                    <p value =@error_message></p>
                 </div>
             </div>
         </div>
