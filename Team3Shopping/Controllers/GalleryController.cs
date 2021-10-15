@@ -45,5 +45,43 @@ namespace Team3Shopping.Controllers
 
             return View();
         }
+
+        public IActionResult AddToCart([FromBody] Product addProduct)
+        {
+            //get current User, currently set to null.
+            User thisUser = null;
+            
+            Guid addProductId = addProduct.Id; //extract the current product ID to be added
+            //alternative: Guid addProductId = Guid.Parse(addProduct.Id) to parse into GUID
+
+            Product thisProduct = dBContext.Products.FirstOrDefault(x => x.Id == addProductId);// Query for product with given id
+
+            if (thisProduct != null) //if product exists in Product inventory
+            {
+                Cart sameProductinCart = dBContext.Carts.FirstOrDefault(x
+                    => x.ProductId == thisProduct.Id && x.UserId == thisUser.Id); //Query if same product is in cart
+
+                if (sameProductinCart == null) //if product does not exist in cart, add in a new Cart row
+                {
+                    Cart newCartItem = new Cart { AddToCartProductQuantity = 1 };
+                    thisProduct.Cart.Add(newCartItem); //add new Cart row to the product's ICollection
+                    thisUser.Cart.Add(newCartItem); //add new Cart row to the users's ICollection
+                }
+                else //if product exists, increment the AddToCartProductQuantity by 1
+                {
+                    sameProductinCart.AddToCartProductQuantity += 1;
+                }
+
+                dBContext.SaveChanges(); //persist all changes to DB
+            }
+
+            List<Cart> allCartItems = dBContext.Carts.Where(x
+                    => x.UserId == thisUser.Id).ToList(); //now get all current Cart items
+
+            int currCount = allCartItems.Sum(x => x.AddToCartProductQuantity); //sum all the Cart Products
+
+            return Json(new { cartCounter = currCount }); //send Json object in AJAX response 
+        }
+
     }
 }
