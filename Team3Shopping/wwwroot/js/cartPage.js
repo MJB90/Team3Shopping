@@ -55,8 +55,9 @@ function checkIsProductDeleted(userId, productId) {
             ProductId: productId,
         },
         dataType: "json",
-        success: function () {
-            alert("The product has been removed from the cart.")
+        success: function (data) {
+            alert("The product has been removed from the cart.");
+            UpdateCartCounter(data.cartCount);
         },
         error: function () {
             alert("There is something wrong!")
@@ -74,7 +75,9 @@ function ChangeQuantityInDB(userId, productId, productQuantity) {
             ProductQuantity: productQuantity
         },
         dataType: "json",
-        success: function () {
+        success: function (data) {
+            UpdateCartCounter(data.cartCount);
+
         },
         error: function () {
             alert("error")
@@ -94,4 +97,9 @@ function updateTotalPrice() {
     }
     document.getElementById("subtotal").innerHTML = '$' + subtotal;
     document.getElementById("total").innerHTML = '$' + subtotal;   
+}
+
+function UpdateCartCounter(cartCount) {
+    let elem = document.getElementById("cartCounter"); //get the counter element from HTML
+    elem.innerHTML = cartCount; //change the value of the cart Counter
 }

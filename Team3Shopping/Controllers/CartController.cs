@@ -71,7 +71,10 @@ namespace Team3Shopping.Controllers
             cart.AddToCartProductQuantity = 0;
 
             dbContext.SaveChanges();
-            return Json(new { successfullyUpdateDatabase = true });
+
+            int currCount = CountCartItems(UserId);
+
+            return Json(new { successfullyUpdateDatabase = true , cartCount = (int) currCount});
         }
         //Update products and carts database
         [HttpPost]
@@ -89,7 +92,10 @@ namespace Team3Shopping.Controllers
             cart.AddToCartProductQuantity =productQuantity;
 
             dbContext.SaveChanges();
-            return Json(new { data = true  });
+
+            int currCount = CountCartItems(UserId);
+
+            return Json(new { data = true, cartCount = currCount });
         }
 
         //Redirect to the purhase is been made page
@@ -141,6 +147,14 @@ namespace Team3Shopping.Controllers
             return View();
         }
 
-        
+
+        public int CountCartItems(string thisUserId)
+        {
+            List<Cart> allCartItems = dbContext.Carts.Where(x => x.UserId == thisUserId).ToList(); //now get all current Cart items
+            int currCount = allCartItems.Sum(x => x.AddToCartProductQuantity); //sum all the Cart Products
+
+            return currCount;
+        }
+
     }
 }
