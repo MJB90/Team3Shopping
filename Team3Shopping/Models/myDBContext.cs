@@ -17,6 +17,7 @@ namespace Team3Shopping.Models
             model.Entity<User>().HasIndex(u => u.Id).IsUnique();
 
             model.Entity<Cart>().HasKey(sc => new { sc.UserId, sc.ProductId });
+
         }
 
         public DbSet<User> Users { get; set; }
@@ -25,5 +26,7 @@ namespace Team3Shopping.Models
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseProduct> PurchaseProducts { get; set; }
         public DbSet<Session> Sessions { get; set; }
+
+        public DbSet<ProductReview> ProductReviews { get; set; }
     }
 }

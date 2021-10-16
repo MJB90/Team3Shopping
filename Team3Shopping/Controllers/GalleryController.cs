@@ -69,17 +69,36 @@ namespace Team3Shopping.Controllers
         }
 
 
-        public IActionResult Product(string thisProductName) // --> localhost/Gallery/Product/{id?}
+        public IActionResult Product(string id) // --> localhost/Gallery/Product/{id?}
         {
-            Product thisProduct = dBContext.Products.FirstOrDefault(x => x.ProductName == thisProductName);
+            Session session = utility.GetSession(Request);
+            if (session == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+
+            Product thisProduct = dBContext.Products.FirstOrDefault(x => x.ProductName == id); //get this product info via its object
+
+            List<ProductReview> reviewList = dBContext.ProductReviews.Where(x => x.ProductId == thisProduct.Id).ToList(); //get list of reviews
+
+            int reviewCount = reviewList.Count(); //get number of reviews
+            double avgRatings = reviewList.Average(x => x.Rating); //get average ratings
+
+            ViewData["reviewList"] = reviewList;
+            ViewData["reviewCount"] = reviewCount;
+            ViewData["avgRatings"] = avgRatings;
             ViewData["thisProduct"] = thisProduct;
-            //--- query product and send to View()
+
             return View();
         }
 
         public IActionResult AddToCart([FromBody] Product addProduct)
         {
-            string sessionId = HttpContext.Request.Cookies["SessionId"]; //retrieve the sessionId from the context (assuming already authenticated)
+            string sessionId = HttpContext.Request.Cookies["SessionId"]; 
+            
+            
+            //retrieve the sessionId from the context (assuming already authenticated)
 
             //get current User, currently set to null.
             Session thisSession = dBContext.Sessions.FirstOrDefault(x => x.Id == Guid.Parse(sessionId)); //get the session object in DB from current sessionId

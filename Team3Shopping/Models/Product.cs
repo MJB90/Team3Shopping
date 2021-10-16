@@ -14,6 +14,7 @@ namespace Team3Shopping.Models
             Id = new Guid();
             Cart = new List<Cart>();
             PurchaseProduct = new List<PurchaseProduct>();
+            ProductReview = new List<ProductReview>();
         }
         public Guid Id { get; set; }
         [Required]
@@ -33,5 +34,7 @@ namespace Team3Shopping.Models
 
         public virtual ICollection<Cart> Cart { get; set; }
         public virtual ICollection<PurchaseProduct> PurchaseProduct { get; set; }
+
+        public virtual ICollection<ProductReview> ProductReview { get; set; }
     }
 }
