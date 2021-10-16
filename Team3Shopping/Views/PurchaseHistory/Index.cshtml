@@ -6,7 +6,8 @@
     @*List<PurchaseProduct> purProdList = (List<PurchaseProduct>)ViewData[];*@
     @*List<Product> productList = (List<Product>)ViewData["productList"];*@
     List<string> activationCodeList = (List<string>)ViewData["activationCodes"];
-    int quantity = (int)ViewData["quantity"];
+    List<List<string>> allActCodeList = (List<List<string>>)ViewData["allActCodeList"];
+int quantity = (int)ViewData["quantity"];
 }
 @section Css{
     <link href="~/css/purchaseHistory.css" rel="stylesheet" />

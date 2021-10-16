@@ -34,24 +34,28 @@ namespace Team3Shopping.Controllers
 
             List<List<Product>> allProductList = new List<List<Product>>();
             List<PurchaseProduct> purProdList = new List<PurchaseProduct>();
-            List<Product> productList = new List<Product>();
+            //List<Product> productList = new List<Product>();
+            List<List<string>> allActCodeList = new List<List<string>>();
             List<string> activationCodeList = new List<string>();
+            int i = 0;
 
             foreach (Purchase p in purchaseList)
             {
                 purProdList = dbContext.PurchaseProducts.Where(x =>
                  x.PurchaseId == p.Id).ToList();
 
+                allProductList.Add(new List<Product>());
+                allActCodeList.Add(new List<string>());
+
                 foreach (PurchaseProduct pp in purProdList)
-                {
-                    productList.Add(dbContext.Products.FirstOrDefault(x =>
+                {                    
+                    allProductList[i].Add(dbContext.Products.FirstOrDefault(x =>
                    x.Id == pp.ProductId));
-                    activationCodeList.Add(pp.ProductActivationCode.ToString());
+                    allActCodeList[i]. Add(pp.ProductActivationCode.ToString());
+                    
                 }
+                i++;
 
-                allProductList.Add(productList);
-
-                productList.Clear();
                 
                 //if (purProdList != null)
                 //{
@@ -60,7 +64,8 @@ namespace Team3Shopping.Controllers
             }
 
             ViewData["allProductList"] = allProductList;
-            ViewData["productList"] = productList;
+            ViewData["allActCodeList"] = allActCodeList;
+            //ViewData["productList"] = productList;
             ViewData["purchases"] = purchaseList;
             ViewData["activationCodes"] = activationCodeList;
             ViewData["quantity"] = activationCodeList.Count;
