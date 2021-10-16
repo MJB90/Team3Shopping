@@ -1,35 +1,88 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    
+﻿@{
+    ViewData["title"] = "My Purchase History";
+
+    List<List<Product>> allProductList = (List<List<Product>>)ViewData["allProductList"];
+    List<Purchase> purchaseList = (List<Purchase>)ViewData["purchases"];
+    @*List<PurchaseProduct> purProdList = (List<PurchaseProduct>)ViewData[];*@
+    @*List<Product> productList = (List<Product>)ViewData["productList"];*@
+    List<string> activationCodeList = (List<string>)ViewData["activationCodes"];
+    int quantity = (int)ViewData["quantity"];
 }
-<h1>@ViewData["Title"]</h1>
+@section Css{
+    <link href="~/css/purchaseHistory.css" rel="stylesheet" />
+
+}
+@section Scripts {
+    <script src="~/js/PurchaseHistory.js"></script>
+}
+
 <div class="container">
     <!-- Section-->
     <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">Fancy Product</h5>
-                                <!-- Product price-->
-                                $40.00 - $80.00
+        <div class="container">
+            @{
+                foreach (List<Product> productList in allProductList)
+                {
+                    foreach (Product product in productList)
+                    {
+                        <!--1-->
+                        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                            @*product image & description*@
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="" />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder">@product.ProductName</h5>
+                                            <!-- Product description-->
+                                            @product.ProductDesc
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center" onclick="function()">
+                                            <a class="btn download-btn" href="#letmeopen">Download</a>
+                                        </div>
+                                        @*<div class="text-center"><a class="btn btn-outline-dark mt-auto download-btn" href="#">Download</a></div>*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*activation code*@
+
+                            <div class="col mb-5" , style="text-align:center">
+                                <select class="custom-select" , style="text-align:center">
+                                    <option selected>Activation Code</option>
+                                    @{ foreach (string activationCode in activationCodeList)
+                                        {
+                                            <option value="@activationCode">@activationCode</option>                                            
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            @*purchase info*@
+                            <div class="col mb-5">
+                                Purchased On: purchase.PurchaseDate <br />
+                                Quantity: quantity<br />
+                                $@product.ProductPrice <br />
                             </div>
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    }
+                }
+            }
+
         </div>
     </section>
+</div>
+
+<div class="popup-wrap" id="letmeopen">
+    <div class="popup-box transform-out">
+        <h2>DOWNLOADING!</h2>
+        <h3>Please check your download file.</h3>
+        <a class="close-btn popup-close" href="#letmeopen">x</a>
+    </div>
 </div>

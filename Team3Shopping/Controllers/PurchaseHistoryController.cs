@@ -20,59 +20,46 @@ namespace Team3Shopping.Controllers
         // overview of purchase history
         public IActionResult Index()
         {
-            // check session first and get user
-            // To be added :)
-            // placeholder
-            //Session get user id
-            //-> use user id to get purchase
-            //-> use purchase id to get purchaseProduct
-            //-> use purchaseProduct to get product + activationCode? 
+            // obtain userId from session
+            string sessionId = HttpContext.Request.Cookies["SessionId"];
+            Session thisSession = dbContext.Sessions.FirstOrDefault(x => x.Id == Guid.Parse(sessionId)); //get the session object in DB from current sessionId
+            User thisUser = dbContext.Users.FirstOrDefault(x => x.Id == thisSession.UserId);
 
-            // 1 user id has many sessions
-            // login -> session generated.
-
-            // obtain list of sessions.
-            List<Session> sessions = dbContext.Sessions.Where(x =>
-                x.Id != null).ToList();
-            User userId = null;
-
-            // query Sessions and get User where UserId == session userId
-            foreach (Session s in sessions)
-            {
-                userId = dbContext.Users.FirstOrDefault(x => x.Id == s.UserId);
-            }
+            string userId = thisUser.Id;
 
 
-            // obtain list of all purchases
-            // tbc: how to pass in userId object into Where method?
+            // obtain list of all purchases            
             List<Purchase> purchaseList = dbContext.Purchases.Where(x =>
-                x.UserId == (userId.Id)).ToList();           
+                x.UserId == userId).ToList();
 
-
+            List<List<Product>> allProductList = new List<List<Product>>();
             List<PurchaseProduct> purProdList = new List<PurchaseProduct>();
-            foreach (Purchase p in purchaseList)
-            {
-                PurchaseProduct purProd = dbContext.PurchaseProducts.FirstOrDefault(x =>
-                 x.PurchaseId == p.Id);
-                if (purProdList != null)
-                {
-                    purProdList.Add(purProd);
-                }
-            }
-
             List<Product> productList = new List<Product>();
             List<string> activationCodeList = new List<string>();
-            foreach (PurchaseProduct pp in purProdList)
+
+            foreach (Purchase p in purchaseList)
             {
-                Product product = dbContext.Products.FirstOrDefault(x =>
-                 x.Id == pp.ProductId);
-                if (productList != null)
+                purProdList = dbContext.PurchaseProducts.Where(x =>
+                 x.PurchaseId == p.Id).ToList();
+
+                foreach (PurchaseProduct pp in purProdList)
                 {
-                    productList.Add(product);
+                    productList.Add(dbContext.Products.FirstOrDefault(x =>
+                   x.Id == pp.ProductId));
                     activationCodeList.Add(pp.ProductActivationCode.ToString());
                 }
+
+                allProductList.Add(productList);
+
+                productList.Clear();
+                
+                //if (purProdList != null)
+                //{
+                //    purProdList.Add(purProd);
+                //}
             }
 
+            ViewData["allProductList"] = allProductList;
             ViewData["productList"] = productList;
             ViewData["purchases"] = purchaseList;
             ViewData["activationCodes"] = activationCodeList;
