@@ -10,8 +10,7 @@ $(document).ready(function () {
     });
 });
 
-
-//Remove products form the cart
+//Event Listener
 window.onload = function () {
     let elems = document.getElementsByClassName("remove");
     for (let i = 0; i < elems.length; i++) {
@@ -21,19 +20,20 @@ window.onload = function () {
     for (let i = 0; i < elemsNum.length; i++) {
         elemsNum[i].addEventListener('change', ChangeQuantity);
     }
+    let elemCheckOut = document.getElementById("checkout")
+    elemCheckOut.addEventListener('click', CheckOut);
 }
 
-
-
+//Remove the product from the cart, update the database, and update the price
 function RemoveProduct(event) {
     let target = event.currentTarget;
     checkIsProductDeleted(target.id, target.className.substring(6));
     target.parentElement.parentElement.remove();
 
-    let previousSubtotal = document.getElementById("subtotal").value;
     updateTotalPrice();
 }
 
+//Increment or decrement the database quantity and update the price
 function ChangeQuantity(event) {
     let targetNum = event.currentTarget;
     let number = targetNum.value;
@@ -46,6 +46,7 @@ function ChangeQuantity(event) {
     updateTotalPrice();
 }
 
+//Use ajax to pass UserId and ProductId to the Remove Action.
 function checkIsProductDeleted(userId, productId) {
     $.ajax({
         type: "POST",
@@ -56,7 +57,7 @@ function checkIsProductDeleted(userId, productId) {
         },
         dataType: "json",
         success: function (data) {
-            alert("The product has been removed from the cart.");
+            alert("Product has been removed from the cart!")
             UpdateCartCounter(data.cartCount);
         },
         error: function () {
@@ -65,6 +66,7 @@ function checkIsProductDeleted(userId, productId) {
     })
 };
 
+//Use ajax to pass userId, productId, and productQuantity to the EditQuantity action. 
 function ChangeQuantityInDB(userId, productId, productQuantity) {
     $.ajax({
         type: "POST",
@@ -85,6 +87,7 @@ function ChangeQuantityInDB(userId, productId, productQuantity) {
     })
 };
 
+//Update the price
 function updateTotalPrice() {
     let parent = document.getElementById("updateShoppingPrice");
     let subtotal = 0.0;
@@ -99,7 +102,17 @@ function updateTotalPrice() {
     document.getElementById("total").innerHTML = '$' + subtotal;   
 }
 
+//Update the cart products count 
 function UpdateCartCounter(cartCount) {
     let elem = document.getElementById("cartCounter"); //get the counter element from HTML
     elem.innerHTML = cartCount; //change the value of the cart Counter
+}
+
+//Checking cart quantity before checkout
+function CheckOut() {
+    if (document.getElementById("updateShoppingPrice").children.length == 0) {
+        alert("The cart is empty");
+        return
+    }
+    window.location.href = "/Cart/PurchaseDone";
 }

@@ -100,7 +100,7 @@ namespace Team3Shopping.Controllers
 
         //Redirect to the purhase is been made page
 
-        public IActionResult PurchaseDone(string UserId, string ProductId)
+        public IActionResult PurchaseDone()
         {
             Session session = utility.GetSession(Request);
             if (session == null)
