@@ -118,8 +118,8 @@ function updateTotalPrice() {
     let parent = document.getElementById("shopping-items");
     let subtotal = 0.0;
     for (let i = 0; i < parent.children.length; i++) {
-        let unitPrice = parseFloat(parent.children[i].children[2].children[2].innerHTML);
-        let quantity = parseFloat(parent.children[i].children[3].children[1].value);
+        let unitPrice = parseFloat(parent.children[i].children[2].children[2].innerHTML.replace('$',''));
+        let quantity = parseFloat(parent.children[i].children[3].children[0].value);
         let price = unitPrice * quantity;
         parent.children[i].children[4].innerHTML = '$' + price;
         subtotal += price;
