@@ -60,8 +60,7 @@ function RemoveProduct(event) {
     let target = event.currentTarget;
     checkIsProductDeleted(target.id, target.className.substring(6));
     target.parentElement.parentElement.remove();
-
-    let previousSubtotal = document.getElementById("subtotal").value;
+    //Update the total price
     updateTotalPrice();
 }
 
@@ -108,7 +107,6 @@ function ChangeQuantityInDB(userId, productId, productQuantity) {
         },
         dataType: "json",
         success: function () {
-            alert("success")
         },
         error: function () {
             alert("error")
@@ -116,6 +114,16 @@ function ChangeQuantityInDB(userId, productId, productQuantity) {
     })
 };
 
-function updateTotalPrice(previousTotal,removedProductPrice,removedProductQuantity) {
-    
+function updateTotalPrice() {
+    let parent = document.getElementById("shopping-items");
+    let subtotal = 0.0;
+    for (let i = 0; i < parent.children.length; i++) {
+        let unitPrice = parseFloat(parent.children[i].children[2].children[2].innerHTML);
+        let quantity = parseFloat(parent.children[i].children[3].children[1].value);
+        let price = unitPrice * quantity;
+        parent.children[i].children[4].innerHTML = '$' + price;
+        subtotal += price;
+    }
+    document.getElementById("subtotal").innerHTML = '$' + subtotal;
+    document.getElementById("total").innerHTML = '$' + subtotal;   
 }

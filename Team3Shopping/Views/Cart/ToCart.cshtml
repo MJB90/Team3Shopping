@@ -18,6 +18,7 @@
     <div class="title">
         Shopping Cart
     </div>
+    <div id="shopping-items">
     <!--Looping through all the products -->
     @for (int i = 0; i < carts.Count; i++)
     {
@@ -52,10 +53,11 @@
                     <button class="remove @carts[i].ProductId" id="@carts[i].UserId" type="button" name="button">Remove</button>
                 </div>
 
-                <div class="price">$@price</div>
+                <div class="price" id="price">$@price</div>
             </div>
         }
     }
+    </div>
 </div>
 <form action="/Cart/PurchaseDone" method="post">
 <div class="row justify-content-center">
@@ -89,15 +91,15 @@
                 <div class="col-lg-3 mt-2">
                     <div class="row d-flex justify-content-between px-4">
                         <p class="mb-1 text-left">Subtotal</p>
-                        <h6 class="mb-1 text-right "id="subtotal">$@subtotal</h6>
+                        <h6 class="mb-1 text-right no-discount" id="subtotal">$@subtotal</h6>
                     </div>
                     <div class="row d-flex justify-content-between px-4">
-                        <p class="mb-1 text-left">Discount</p>
-                        <h6 class="mb-1 text-right" id="total">$0.00</h6>
+                        <p class="mb-1 text-left" >Discount</p>
+                        <h6 class="mb-1 text-right" id="discount">$0.00</h6>
                     </div>
                     <div class="row d-flex justify-content-between px-4" id="tax">
                         <p class="mb-1 text-left">Total (tax included)</p>
-                        <h6 class="mb-1 text-right" id="total">$@subtotal</h6>
+                        <h6 class="mb-1 text-right no-discount" id="total">$@subtotal</h6>
                     </div> <input type="submit" class="btn-block btn-blue" name="Checkout" value="Checkout">
                 </div>
             </div>
