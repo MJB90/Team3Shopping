@@ -26,34 +26,33 @@
         {
             float price = products[i].ProductPrice * carts[i].AddToCartProductQuantity;
             subtotal += price;
-            <div class="item @carts[i].ProductId" id="@carts[i].UserId">
-                <div class="buttons">
-                    <!--<span class="delete-btn"></span> -->
-                    <span class="like-btn"></span>
-                </div>
-                <!--Product Image -->
-                <div class="image">
-                    <img src="@products[i].ProductImage" width="120" height="80" alt="" />
-                </div>
-
-                <div class="description">
-                    <span>@products[i].ProductName</span>
-                    <span>@products[i].ProductCategory</span>
-                    <span>$@products[i].ProductPrice</span>
-                </div>
-
-                <div class="quantity">  
-                    <input type="number" name="name" class="productQuantity @carts[i].UserId" id="@carts[i].ProductId" value="@carts[i].AddToCartProductQuantity">
-                    <button class="remove @carts[i].ProductId" id="@carts[i].UserId" type="button" name="button">Remove</button>
-                </div>
-
-                <div class="price">$@price</div>
+        <div class="item @carts[i].ProductId" id="@carts[i].UserId">
+            <div class="buttons">
+                <span class="like-btn"></span>
             </div>
+            <!--Product Image -->
+            <div class="image">
+                <img src="@products[i].ProductImage" width="120" height="80" alt="" />
+            </div>
+            <!-- Product Description-->
+            <div class="description">
+                <span>@products[i].ProductName</span>
+                <span>@products[i].ProductCategory</span>
+                <span>$@products[i].ProductPrice</span>
+            </div>
+            <!-- Product Quantity-->
+            <div class="quantity">
+                <input type="number" name="name" class="productQuantity @carts[i].UserId" id="@carts[i].ProductId" value="@carts[i].AddToCartProductQuantity">
+                <button class="remove @carts[i].ProductId" id="@carts[i].UserId" type="button" name="button">Remove</button>
+            </div>
+
+            <div class="price">$@price</div>
+        </div>
         }
     }
     </div>
 </div>
-<form action="/Cart/PurchaseDone" method="post">
+<!--Payment section-->
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card">
@@ -89,16 +88,16 @@
                     </div>
                     <div class="row d-flex justify-content-between px-4">
                         <p class="mb-1 text-left">Discount</p>
-                        <h6 class="mb-1 text-right" id="discount">$0.00</h6>
+                        <h6 class="mb-1 text-right" id="discount">$0</h6>
                     </div>
                     <div class="row d-flex justify-content-between px-4" id="tax">
                         <p class="mb-1 text-left">Total (tax included)</p>
                         <h6 class="mb-1 text-right" id="total">$@subtotal</h6>
-                    </div> <input type="submit" class="btn-block btn-blue" name="Checkout" value="Checkout">
+                    </div> <input type="button" class="btn-block btn-blue" id="checkout" name="Checkout" value="Checkout">
                 </div>
             </div>
         </div>
     </div>
 </div>
-</form>
+
 
