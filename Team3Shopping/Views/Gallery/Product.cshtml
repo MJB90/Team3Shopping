@@ -3,5 +3,61 @@
 *@
 
 @{
-    Product thisProduct = (Product) ViewData["thisProduct"];
+    Product thisProduct = (Product)ViewData["thisProduct"];
+
 }
+<div class="container">
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                @*product image*@
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="~/Images/whitestar.jpeg" alt="..." />
+                        <!-- Product details-->
+                       
+                        <!-- Product actions-->
+                       
+                            <div class="text-center"></div>
+                       
+                    </div>
+                </div>
+
+
+
+                @*purchase info*@
+                <div class="col mb-5">
+                    <h4>Product Name</h4>
+                    <h4> Price </h4>
+                    Stars and how many reviews <br />
+                    Product description <br />
+
+                    Add to Cart
+                </div>
+
+            </div>
+            @*review*@
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5">
+                    <div>
+
+                        <div class="text-center card h-100">
+
+                            <h5 class="fw-bolder">Product Reviews</h5>
+
+
+                        </div>
+                        </br>
+                        $40.00 - $80.00
+                    </div>
+                    <!-- Product actions-->
+
+                </div>
+
+
+            </div>
+            </div>
+    </section>
+</div>

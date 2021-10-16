@@ -60,6 +60,8 @@ namespace Team3Shopping.Controllers
         {
             Product thisProduct = dBContext.Products.FirstOrDefault(x => x.ProductName == thisProductName);
             ViewData["thisProduct"] = thisProduct;
+           // List<ProductReview> thisReview = dBContext.ProductReviews.Where(y => y.ProductId == thisProduct.Id).ToList();//need to configure the models to one-many
+            //ViewData["thisReview"] = thisReview;
             //--- query product and send to View()
             return View();
         }

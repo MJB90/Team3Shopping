@@ -6,7 +6,7 @@
 }
 
 @section Css{
-    <link href="~/css/productList.css" rel="stylesheet" />
+    <link href="~/css/Gallery.css" rel="stylesheet" />
 }
 
 @section Scripts {
@@ -23,10 +23,14 @@
     </div>
 </header>
 <div class="container">
-    <form action="/Gallery" method="POST">
-        <input class="form-control" type="text" placeholder="Search" name="searchString" value="@searchString" />
+    <div class="wrap">
+        <div class="search">
+            <form action="/Gallery" method="POST">
+                <input class="searchTerm" type="text" placeholder="Search" name="searchString" value="@searchString" />
 
-    </form>
+            </form>
+        </div>
+    </div>
     <!-- Section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
@@ -34,10 +38,10 @@
                 @foreach (Product myproduct in products)
 
                 {
-                    <div class="col mb-5">
+                    <div class="col mb-5 justify-content-center">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <a asp-controller="Gallery" asp-action="Product" asp-route-id = "@myproduct.ProductName" >
+                            <a asp-controller="Gallery" asp-action="Product" asp-route-id="@myproduct.ProductName">
                                 <img class="card-img-top" src="~/Images/whitestar.jpeg" alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">

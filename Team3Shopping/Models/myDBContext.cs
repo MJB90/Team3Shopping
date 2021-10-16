@@ -25,5 +25,6 @@ namespace Team3Shopping.Models
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseProduct> PurchaseProducts { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<ProductReview> ProductReviews { get; set; }
     }
 }
