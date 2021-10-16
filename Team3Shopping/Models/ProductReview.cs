@@ -10,12 +10,9 @@ namespace Team3Shopping.Models
     {
         public ProductReview()
         {
-            Id = new Guid();
-            Timestamp = DateTime.Now.ToString("dd MMM yyyy"); //e.g. 03 Sep 2021
+            Timestamp = DateTime.Now.ToString("dd MMMM yyyy, hh:mm tt"); //e.g. 03 September 2021, 09:30 AM (12 hr clock)
         }
-
         public Guid Id { get; set; }
-
 
 
         [Required]
