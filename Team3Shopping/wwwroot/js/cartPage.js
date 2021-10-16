@@ -60,7 +60,8 @@ function RemoveProduct(event) {
     let target = event.currentTarget;
     checkIsProductDeleted(target.id, target.className.substring(6));
     target.parentElement.parentElement.remove();
-    //Update the total price
+
+    let previousSubtotal = document.getElementById("subtotal").value;
     updateTotalPrice();
 }
 
@@ -107,6 +108,7 @@ function ChangeQuantityInDB(userId, productId, productQuantity) {
         },
         dataType: "json",
         success: function () {
+            alert("success")
         },
         error: function () {
             alert("error")

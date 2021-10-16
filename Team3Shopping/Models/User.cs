@@ -13,6 +13,7 @@ namespace Team3Shopping.Models
             Cart = new List<Cart>();
             Purchase = new List<Purchase>();
             Session = new List<Session>();
+            ProductReview = new List<ProductReview>();
         }
         [Required]
         [MaxLength(32)]
@@ -31,6 +32,8 @@ namespace Team3Shopping.Models
         public virtual ICollection<Cart> Cart { get; set; }
         public virtual ICollection<Purchase> Purchase { get; set; }
         public virtual ICollection<Session> Session { get; set; }
+        public virtual ICollection<ProductReview> ProductReview { get; set; }
+
     }
-        
+
 }

@@ -20,6 +20,7 @@ namespace Team3Shopping
             SeedUsers();
             SeedProducts();
             SeedCart();
+            SeedProductReviews();
         }
 
         public void SeedUsers()
@@ -129,6 +130,90 @@ namespace Team3Shopping
 
             dbContext.SaveChanges();
         }
+
+        public void SeedProductReviews()
+        {
+
+            User thisUser = dbContext.Users.FirstOrDefault(x => x.Id == "test@hotmail.com");
+            User thisUser2 = dbContext.Users.FirstOrDefault(x => x.Id == "shuern.chua@gmail.com");
+            User thisUser3 = dbContext.Users.FirstOrDefault(x => x.Id == "diego@yahoo.com");
+
+            Product thisProduct = dbContext.Products.FirstOrDefault(x => x.ProductName == "Microsoft Visual Studio");
+            Product thisProduct2 = dbContext.Products.FirstOrDefault(x => x.ProductName == "Zoom");
+            Product thisProduct3 = dbContext.Products.FirstOrDefault(x => x.ProductName == "Overcooked 2");
+
+
+            //Seed all VS reviews
+
+            ProductReview review_VS01 = new ProductReview
+            {
+                ReviewText = "VS is a great coding platform! Will buy again",
+                Rating = 4,
+                Timestamp = new DateTime(2021, 01, 23).ToString("dd MMM yyyy")
+            };
+
+            ProductReview review_VS02 = new ProductReview
+            {
+                ReviewText = "Visual Studio is perfect for my programming classes",
+                Rating = 4,
+                Timestamp = new DateTime(2021, 02, 21).ToString("dd MMM yyyy")
+            };
+
+            ProductReview review_VS03 = new ProductReview
+            {
+                ReviewText = "Functionalities in Microsoft VS is excellent for work",
+                Rating = 5,
+                Timestamp = new DateTime(2021, 03, 10).ToString("dd MMM yyyy")
+            };
+
+            //user 1 review
+            thisProduct.ProductReview.Add(review_VS01); 
+            thisUser.ProductReview.Add(review_VS01);            
+            //user 2 review
+            thisProduct.ProductReview.Add(review_VS02); 
+            thisUser2.ProductReview.Add(review_VS02); 
+            //user 3 review
+            thisProduct.ProductReview.Add(review_VS03); 
+            thisUser3.ProductReview.Add(review_VS03);
+
+            //Seed all Zoom reviews
+
+            ProductReview review_Zoom01 = new ProductReview
+            {
+                ReviewText = "Satisfied with Zoom for my online work meetings",
+                Rating = 4,
+                Timestamp = new DateTime(2021, 01, 14).ToString("dd MMM yyyy")
+            };
+
+            ProductReview review_Zoom02 = new ProductReview
+            {
+                ReviewText = "I have faced issues with screen sharing. It turns blank at times, and sounds cuts off",
+                Rating = 2,
+                Timestamp = new DateTime(2020, 12, 01).ToString("dd MMM yyyy")
+            };
+
+            thisProduct2.ProductReview.Add(review_Zoom01); //add new Cart row to the product's ICollection
+            thisUser2.ProductReview.Add(review_Zoom01); //add new Cart row to the users's ICollection
+
+            thisProduct2.ProductReview.Add(review_Zoom02); //add new Cart row to the product's ICollection
+            thisUser3.ProductReview.Add(review_Zoom02); //add new Cart row to the users's ICollection
+
+
+            // Seed 1 Overcooked review
+            ProductReview review_OCooked01 = new ProductReview
+            {
+                ReviewText = "Super fun game. Instantly hooked!!",
+                Rating = 5,
+                Timestamp = new DateTime(2020, 12, 25).ToString("dd MMM yyyy")
+            };
+
+            thisProduct3.ProductReview.Add(review_OCooked01); //add new Cart row to the product's ICollection
+            thisUser3.ProductReview.Add(review_OCooked01); //add new Cart row to the users's ICollection
+
+
+            dbContext.SaveChanges();
+        }
+
 
     }
 }
