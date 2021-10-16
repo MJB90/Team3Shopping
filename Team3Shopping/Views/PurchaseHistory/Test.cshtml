@@ -1,60 +1,26 @@
 ﻿@{
     ViewData["title"] = "My Purchase History";
 
+    @*List<Session> sessions = (List<Session>)ViewData[];
+    List<Purchase> purchaseList = (List<Purchase>)ViewData["purchases"];
+    List<PurchaseProduct> purProdList = (List<PurchaseProduct>)ViewData[];
+    List<Product> productList = (List<Product>)ViewData["productList"];
+    List<string> activationCodeList = (List<string>)ViewData["activationCodes"];*@
 }
 @section Css{
     <link href="~/css/purchaseHistory.css" rel="stylesheet" />
+
+}
+@section Scripts {
+    <script src="~/js/PurchaseHistory.js"></script>
 }
 
 <div class="container">
     <!-- Section-->
     <section class="py-5">
         <div class="container">
-           
-                <!--1-->
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    @*product image & description*@
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->                            
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h5 class="fw-bolder">ProductName</h5>
-                                        <!-- Product description-->
-                                        Product Descr.
-                                    </div>
-                                </div>                         
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto download-btn" href="#">Download</a></div>
-                            </div>
-                        </div>
-                    </div>
 
-                    @*activation code*@
-                    
-                        <div class="col mb-5" , style="text-align:center">
-                            <select class="custom-select" , style="text-align:center">
-                                <option selected>Activation Code</option>
-                                <option value="1"></option>
-                                <option value="2"></option>
-                            </select>
-                        </div>
-                    
-                    @*purchase info*@
-                    <div class="col mb-5">
-                        Purchased On: 1st Jan 2020 <br />
-                        Quantity:  <br />
-                        $ ProductPrice <br />
-                    </div>
-                </div>
-            
-        </div>
-
-            <!--2-->
+            <!--1-->
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 @*product image & description*@
                 <div class="col mb-5">
@@ -66,8 +32,8 @@
                             <div class="text-center">
                                 <!-- Product name-->
                                 <h5 class="fw-bolder">ProductName</h5>
-                                <!-- Product price-->
-                                $40.00 - $80.00
+                                <!-- Product description-->
+                                Product Descr.
                             </div>
                         </div>
                         <!-- Product actions-->
@@ -78,21 +44,64 @@
                 </div>
 
                 @*activation code*@
-                <div class="col mb-5" , style="text-align:center;">
-                    <select class="custom-select" , style="text-align:center;">
+
+                <div class="col mb-5" , style="text-align:center">
+                    <select class="custom-select" , style="text-align:center">
                         <option selected>Activation Code</option>
-                        <option value="1">d99dh-af29hs-2h8fh</option>
-                        <option value="2">vbvb2-a29jg-3jk98</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
                     </select>
                 </div>
 
                 @*purchase info*@
                 <div class="col mb-5">
                     Purchased On: 1st Jan 2020 <br />
-                    Quantity: 2 <br />
+                    Quantity:  <br />
+                    $ ProductPrice <br />
                 </div>
             </div>
-</section>
+
+        </div>
+
+        <!--2-->
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @*product image & description*@
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">ProductName</h5>
+                            <!-- Product price-->
+                            $40.00 - $80.00
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto download-btn" href="#">Download</a></div>
+                    </div>
+                </div>
+            </div>
+
+            @*activation code*@
+            <div class="col mb-5" , style="text-align:center;">
+                <select class="custom-select" , style="text-align:center;">
+                    <option selected>Activation Code</option>
+                    <option value="1">d99dh-af29hs-2h8fh</option>
+                    <option value="2">vbvb2-a29jg-3jk98</option>
+                </select>
+            </div>
+
+            @*purchase info*@
+            <div class="col mb-5">
+                Purchased On: 1st Jan 2020 <br />
+                Quantity: 2 <br />
+            </div>
+        </div>
+    </section>
 </div>
 
 
@@ -103,6 +112,6 @@
     <div class="popup-box transform-out">
         <h2>DOWNLOADING!</h2>
         <h3>Please check your download file.</h3>
-       
+        <a class="close-btn popup-close" href="#letmeopen">x</a>
     </div>
 </div>
