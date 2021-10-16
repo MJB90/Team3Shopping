@@ -62,12 +62,14 @@ namespace Team3Shopping.Controllers
             return Json(new { successfullyUpdateDatabase = true });
         }
         //Update products and carts database
+        [HttpPost]
         public IActionResult EditQuantity(string UserId, string ProductId, string ProductQuantity)
         {
+            Guid productId = Guid.Parse(ProductId);
             Cart cart = dbContext.Carts.FirstOrDefault(x =>
-            x.UserId == UserId && x.ProductId == Guid.Parse(ProductId));
-
-            cart.AddToCartProductQuantity -= (cart.AddToCartProductQuantity - Convert.ToInt32(ProductQuantity));
+            x.UserId == UserId && x.ProductId == productId);
+            int productQuantity = Int32.Parse(ProductQuantity);
+            cart.AddToCartProductQuantity =productQuantity;
 
             dbContext.SaveChanges();
             return Json(new { data = true  });

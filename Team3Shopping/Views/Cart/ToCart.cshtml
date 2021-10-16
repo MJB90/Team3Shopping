@@ -4,6 +4,7 @@
     List<Cart> carts = (List<Cart>)ViewData["cart"];
     List<Product> products = (List<Product>)ViewData["product"];
     List<User> users = (List<User>)ViewData["user"];
+    float subtotal = 0;
 }
 @section Css{
     <link href="~/css/cartPage.css" rel="stylesheet" />
@@ -17,12 +18,14 @@
     <div class="title">
         Shopping Cart
     </div>
+    <div id="shopping-items">
     <!--Looping through all the products -->
     @for (int i = 0; i < carts.Count; i++)
     {
         if (carts[i].AddToCartProductQuantity > 0)
         {
             float price = products[i].ProductPrice * carts[i].AddToCartProductQuantity;
+            subtotal += price;
             <div class="item @carts[i].ProductId" id="@carts[i].UserId">
                 <div class="buttons">
                     <!--<span class="delete-btn"></span> -->
@@ -43,17 +46,18 @@
                     <button class="plus-btn" type="button" name="button">
                         <img src="/Image/Cart/plus.svg"  alt="" />
                     </button>
-                    <input type="text" name="name" id="@carts[i].ProductId" value="@carts[i].AddToCartProductQuantity">
+                    <input type="number" name="name" class="productQuantity @carts[i].UserId" id="@carts[i].ProductId" value="@carts[i].AddToCartProductQuantity">
                     <button class="minus-btn" type="button" name="button">
                         <img src="/Image/Cart/minus.svg" alt="" />
                     </button>
-                    <button class="remove @carts[i].UserId" type="button" name="button">Remove</button>
+                    <button class="remove @carts[i].ProductId" id="@carts[i].UserId" type="button" name="button">Remove</button>
                 </div>
 
-                <div class="price">$@price</div>
+                <div class="price" id="price">$@price</div>
             </div>
         }
     }
+    </div>
 </div>
 <form action="/Cart/PurchaseDone" method="post">
 <div class="row justify-content-center">
@@ -87,15 +91,15 @@
                 <div class="col-lg-3 mt-2">
                     <div class="row d-flex justify-content-between px-4">
                         <p class="mb-1 text-left">Subtotal</p>
-                        <h6 class="mb-1 text-right">$23.49</h6>
+                        <h6 class="mb-1 text-right no-discount" id="subtotal">$@subtotal</h6>
                     </div>
                     <div class="row d-flex justify-content-between px-4">
-                        <p class="mb-1 text-left">Shipping</p>
-                        <h6 class="mb-1 text-right">$0.00</h6>
+                        <p class="mb-1 text-left" >Discount</p>
+                        <h6 class="mb-1 text-right" id="discount">$0.00</h6>
                     </div>
                     <div class="row d-flex justify-content-between px-4" id="tax">
                         <p class="mb-1 text-left">Total (tax included)</p>
-                        <h6 class="mb-1 text-right">$26.48</h6>
+                        <h6 class="mb-1 text-right no-discount" id="total">$@subtotal</h6>
                     </div> <input type="submit" class="btn-block btn-blue" name="Checkout" value="Checkout">
                 </div>
             </div>

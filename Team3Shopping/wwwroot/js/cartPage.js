@@ -2,7 +2,7 @@
     $(this).toggleClass('is-active');
 });
 
-$('.minus-btn').on('click', function (e) {
+/*$('.minus-btn').on('click', function (e) {
     e.preventDefault();
     var $this = $(this);
     var $input = $this.closest('div').find('input');
@@ -31,7 +31,7 @@ $('.plus-btn').on('click', function (e) {
 }
 
 $input.val(value);
-});
+});*/
 
 $(document).ready(function () {
 
@@ -44,33 +44,38 @@ $(document).ready(function () {
 
 //Remove products form the cart
 window.onload = function () {
-    let elems = document.getElementsByClassName("item");
+    let elems = document.getElementsByClassName("remove");
     for (let i = 0; i < elems.length; i++) {
         elems[i].addEventListener('click', RemoveProduct);
-        elems[i].addEventListener('change', ChangeQuantity);
+    }
+    let elemsNum = document.getElementsByClassName("productQuantity");
+    for (let i = 0; i < elemsNum.length; i++) {
+        elemsNum[i].addEventListener('change', ChangeQuantity);
     }
 }
 
+
+
 function RemoveProduct(event) {
     let target = event.currentTarget;
-    let number = document.getElementById(target.className.substring(5)).value;
-    alert(number)
-    alert(target.className.substring(5))
-    checkIsProductDeleted(target.id, target.className.substring(5),number);
-    target.remove();
+    checkIsProductDeleted(target.id, target.className.substring(6));
+    target.parentElement.parentElement.remove();
+    //Update the total price
     updateTotalPrice();
 }
 
 function ChangeQuantity(event) {
-    targetNum = event.currentTarget;
-    let number = document.getElementById(target.className.substring(7)).value;
-    let user = targetNum.id;
-    let product = target.className.substring(7);
+    let targetNum = event.currentTarget;
+    let number = targetNum.value;
+    let user = targetNum.className.substring(16);
+    let product = targetNum.id;
     ChangeQuantityInDB(user, product, number);
-    if (number === 0) {
-        targetNum.remove();
+    if (number == 0) {
+        targetNum.parentElement.parentElement.remove();
     }
-    updateCartTotal();
+    
+
+    updateTotalPrice();
 }
 
 function checkIsProductDeleted(userId, productId) {
@@ -83,18 +88,18 @@ function checkIsProductDeleted(userId, productId) {
         },
         dataType: "json",
         success: function () {
-            alert("success")
+            alert("The product has been removed from the cart.")
         },
         error: function () {
-            alert("error")
+            alert("There is something wrong!")
         }
     })
-    };
+};
 
 function ChangeQuantityInDB(userId, productId, productQuantity) {
     $.ajax({
         type: "POST",
-        url: '@Url.Action("EditQuantity", "Cart")',
+        url: "/Cart/EditQuantity",
         data: {
             UserId: userId,
             ProductId: productId,
@@ -102,14 +107,23 @@ function ChangeQuantityInDB(userId, productId, productQuantity) {
         },
         dataType: "json",
         success: function () {
-            alert("success")
         },
         error: function () {
             alert("error")
         }
     })
-}
+};
 
 function updateTotalPrice() {
-    
+    let parent = document.getElementById("shopping-items");
+    let subtotal = 0.0;
+    for (let i = 0; i < parent.children.length; i++) {
+        let unitPrice = parseFloat(parent.children[i].children[2].children[2].innerHTML);
+        let quantity = parseFloat(parent.children[i].children[3].children[1].value);
+        let price = unitPrice * quantity;
+        parent.children[i].children[4].innerHTML = '$' + price;
+        subtotal += price;
+    }
+    document.getElementById("subtotal").innerHTML = '$' + subtotal;
+    document.getElementById("total").innerHTML = '$' + subtotal;   
 }

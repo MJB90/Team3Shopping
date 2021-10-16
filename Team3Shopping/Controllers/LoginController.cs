@@ -35,7 +35,7 @@ namespace Team3Shopping.Controllers
                 }
 
                 // valid Session ID; route to landing page "Action Method", "Controller"
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("Index", "Gallery");
             }
 
             if(username != null)
@@ -73,11 +73,7 @@ namespace Team3Shopping.Controllers
             // ask browser to save and send back these cookies next time
             Response.Cookies.Append("SessionId", session.Id.ToString());
             Response.Cookies.Append("Username", user.Id);
-            return RedirectToAction("Index", "Product");
-
-
-
-
+            return RedirectToAction("Index", "Gallery");
 
         }
 

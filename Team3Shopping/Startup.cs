@@ -64,7 +64,7 @@ namespace Team3Shopping
             }
             else
             
-            app.UseMiddleware<CartCounter>();
+            app.UseMiddleware<NavigationBar>();
 
             
             

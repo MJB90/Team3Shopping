@@ -1,10 +1,17 @@
 ﻿@{
     string cartCount = "0";
+    User thisUser = null;
     if (Context.Request.Cookies["SessionId"] == null)
+    {
         cartCount = "00";
+    }
     else
-        if(Context.Items["cartCount"] != null) //somehow this is null on the first login, and shows as 0 (default val above). 
-            cartCount = (string) Context.Items["cartCount"].ToString(); //but this is ok on second and third logins
+    {
+        thisUser = (User) Context.Items["thisUser"];
+        if (Context.Items["cartCount"] != null) //somehow this is null on the first login, and shows as 0 (default val above). 
+            cartCount = (string)Context.Items["cartCount"].ToString(); //but this is ok on second and third logins
+    }
+
 
  }
 
@@ -33,31 +40,26 @@
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/Gallery/Index">
                         <strong>WhiteStar Shop</strong>
                     </a>
                     <div class="collapse navbar-collapse" id="navbarNav1">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" asp-controller="Gallery" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+                            <li class="nav-item">
+                                <p class="nav-link"> <strong> Hello, @thisUser.FirstName @thisUser.LastName </strong> <span class="sr-only">(current)</span> </p>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link">Features</a>
+                                <a class="nav-link" asp-controller="Gallery" asp-action="Index"> Home Gallery <span class="sr-only">(current)</span></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link">Pricing</a>
-                            </li>
-                            <li class="nav-item dropdown btn-group">
-                                <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More info</a>
-                                <div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
-                                    <a class="dropdown-item">Contact</a>
-                                    <a class="dropdown-item">Billing adress</a>
-                                    <a class="dropdown-item">Discounts</a>
-                                </div>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="PurchaseHistory" asp-action="Test">My Purchases</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Logout" asp-action="Index"> Log out <span class="sr-only">(current)</span></a>
+                            </li>
+
                         </ul>
                         <form class="form-inline waves-effect waves-light">
                             <input class="form-control" type="text" placeholder="Search">

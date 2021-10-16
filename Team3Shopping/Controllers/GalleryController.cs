@@ -14,9 +14,15 @@ namespace Team3Shopping.Controllers
     {
         private myDBContext dBContext;
 
+        //--- manas code
+        private Utility utility;
+
         public GalleryController(myDBContext dBContext)
         {
             this.dBContext = dBContext;
+
+            //--- manas code
+            utility = new Utility(dBContext);
         }
 
         public IActionResult Index(string searchString)
@@ -28,14 +34,21 @@ namespace Team3Shopping.Controllers
             if (searchString == null) { searchString = ""; }
 
             //check if the session is valid-->need to be checked when merge with login
-           /*
-            * string thisUsername = HttpContext.Session.GetString("username");
-            string thisSessionId = HttpContext.Session.GetString("sessionId");
-            if (thisSessionId == null)
+            /*
+             * string thisUsername = HttpContext.Session.GetString("username");
+             string thisSessionId = HttpContext.Session.GetString("sessionId");
+             if (thisSessionId == null)
+             {
+                 return RedirectToAction("Login", "Home");
+             }
+             */
+
+            //--- manas code
+            Session session = utility.GetSession(Request);
+            if (session == null)
             {
-                return RedirectToAction("Login", "Home");
+                return RedirectToAction("Index", "Login");
             }
-            */
             //to make a product list which contain search string in either name, desc, category
             List<Product> products = dBContext.Products.Where(x =>
                x.ProductName.Contains(searchString)||
