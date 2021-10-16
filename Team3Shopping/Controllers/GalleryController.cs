@@ -83,7 +83,10 @@ namespace Team3Shopping.Controllers
             List<ProductReview> reviewList = dBContext.ProductReviews.Where(x => x.ProductId == thisProduct.Id).ToList(); //get list of reviews
 
             int reviewCount = reviewList.Count(); //get number of reviews
-            double avgRatings = reviewList.Average(x => x.Rating); //get average ratings
+            double avgRatings = 0;
+            if (reviewCount > 0)
+                avgRatings = reviewList.Average(x => x.Rating); //get average ratings
+
 
             ViewData["reviewList"] = reviewList;
             ViewData["reviewCount"] = reviewCount;
