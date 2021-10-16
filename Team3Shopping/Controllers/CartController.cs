@@ -10,14 +10,21 @@ namespace Team3Shopping.Controllers
     public class CartController : Controller
     {
         private myDBContext dbContext;
+        private Utility utility;
+
         public CartController (myDBContext dbContext)
         {
             this.dbContext = dbContext;
+            utility = new Utility(dbContext);
         }
         //Redirect to cart page 
         public IActionResult ToCart()
         {
-
+            Session session = utility.GetSession(Request);
+            if (session == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             //Select all products in the cart
             List<Cart> carts = dbContext.Carts.Where(x =>
                 x.UserId != null && x.ProductId != null).ToList();
@@ -52,6 +59,11 @@ namespace Team3Shopping.Controllers
         [HttpPost]
         public IActionResult Remove(string UserId,string ProductId)
         {
+            Session session = utility.GetSession(Request);
+            if (session == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             Guid productId = Guid.Parse(ProductId);
             //Update carts database
             Cart cart = dbContext.Carts.FirstOrDefault(x =>
@@ -65,6 +77,11 @@ namespace Team3Shopping.Controllers
         [HttpPost]
         public IActionResult EditQuantity(string UserId, string ProductId, string ProductQuantity)
         {
+            Session session = utility.GetSession(Request);
+            if (session == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             Guid productId = Guid.Parse(ProductId);
             Cart cart = dbContext.Carts.FirstOrDefault(x =>
             x.UserId == UserId && x.ProductId == productId);
@@ -79,47 +96,51 @@ namespace Team3Shopping.Controllers
 
         public IActionResult PurchaseDone(string UserId, string ProductId)
         {
-            Session session = GetSession();
+            Session session = utility.GetSession(Request);
             if (session == null)
             {
-                return RedirectToAction("Index", "Logout");
+                return RedirectToAction("Index", "Login");
             }
             //Do some validations of the payment method
 
             //Update database
-            /*List<Cart> carts = dbContext.Carts.Where(x =>
+            List<Cart> carts = dbContext.Carts.Where(x =>
             x.UserId == session.UserId && x.AddToCartProductQuantity > 0).ToList();
 
-            if (carts != null)
+            if (carts == null)
             {
                 return View("Unsuccessful");
             }
+   
+            dbContext.Add(new Purchase
+            {
+                UserId = session.UserId,
+                PurchaseDate = DateTime.Now
+            });
+            dbContext.SaveChanges();
 
+            Purchase purchases = dbContext.Purchases.FirstOrDefault(x =>
+            x.Id != null && x.UserId == session.UserId);
+            List<Product> products = new List<Product>();
             foreach (Cart cart in carts)
-                dbContext.Add(new Purchase
+            {
+                Product product = dbContext.Products.FirstOrDefault(x => 
+                x.Id == cart.ProductId);
+                products.Add(product);
+            }
+            foreach (Product p in products)
+            {
+                dbContext.Add(new PurchaseProduct
                 {
-                    UserId = cart.UserId,
-                    PurchaseDate = DateTime.Now
+                    PurchaseId = purchases.Id,
+                    ProductId = p.Id
                 });
+            }
 
-            List<Purchase> purchases = dbContext.Purchases.Where(x =>
-            x.Id != null && x.UserId == session.UserId).ToList();
-
-
-            dbContext.SaveChanges();*/
+            dbContext.SaveChanges();
             return View();
         }
 
-        private Session GetSession()
-        {
-            if (Request.Cookies["SessionId"] == null)
-            {
-                return null;
-            }
-            Guid sessionId = Guid.Parse(Request.Cookies["SessionId"]);
-            Session session = dbContext.Sessions.FirstOrDefault(x =>
-              x.Id == sessionId);
-            return session;
-        }
+        
     }
 }
