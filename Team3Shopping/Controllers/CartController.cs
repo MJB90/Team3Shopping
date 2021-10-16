@@ -125,15 +125,19 @@ namespace Team3Shopping.Controllers
             });
             dbContext.SaveChanges();
 
-            Purchase purchases = dbContext.Purchases.FirstOrDefault(x =>
+                Purchase purchases = dbContext.Purchases.OrderByDescending(x=>x.PurchaseDate).FirstOrDefault(x =>
             x.Id != null && x.UserId == session.UserId);
+ 
             List<Product> products = new List<Product>();
             foreach (Cart cart in carts)
             {
-                Product product = dbContext.Products.FirstOrDefault(x => 
+                while (cart.AddToCartProductQuantity>0)
+                {
+                    Product product = dbContext.Products.FirstOrDefault(x =>
                 x.Id == cart.ProductId);
-                products.Add(product);
-                cart.AddToCartProductQuantity = 0;
+                    products.Add(product);
+                    cart.AddToCartProductQuantity -=1;
+                }    
             }
             foreach (Product p in products)
             {
