@@ -14,20 +14,18 @@ namespace Team3Shopping.Controllers
     public class LoginController : Controller
     {
         private myDBContext dBContext;
+        private Utility utility;
 
         public LoginController(myDBContext dBContext)
         {
             this.dBContext = dBContext;
+            utility = new Utility(dBContext);
         }
         public IActionResult Index(string username,string error_message)
         {
             if (Request.Cookies["SessionId"] != null)
             {
-                Guid sessionId = Guid.Parse(Request.Cookies["sessionId"]);
-                Session session = dBContext.Sessions.FirstOrDefault(x =>
-                    x.Id == sessionId
-                );
-
+                Session session = utility.GetSession(Request);
                 if (session == null)
                 {
                     // invalid Session ID; route to Logout
