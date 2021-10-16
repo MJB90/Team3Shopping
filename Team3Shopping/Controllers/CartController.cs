@@ -27,7 +27,7 @@ namespace Team3Shopping.Controllers
             }
             //Select all products in the cart
             List<Cart> carts = dbContext.Carts.Where(x =>
-                x.UserId != null && x.ProductId != null).ToList();
+                x.UserId == session.UserId && x.ProductId != null).ToList();
             List<Product> products = new List<Product>();
             foreach (Cart c in carts)
             {
@@ -127,6 +127,7 @@ namespace Team3Shopping.Controllers
                 Product product = dbContext.Products.FirstOrDefault(x => 
                 x.Id == cart.ProductId);
                 products.Add(product);
+                cart.AddToCartProductQuantity = 0;
             }
             foreach (Product p in products)
             {
@@ -136,7 +137,6 @@ namespace Team3Shopping.Controllers
                     ProductId = p.Id
                 });
             }
-
             dbContext.SaveChanges();
             return View();
         }
