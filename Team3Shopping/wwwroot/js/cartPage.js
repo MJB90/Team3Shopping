@@ -2,37 +2,6 @@
     $(this).toggleClass('is-active');
 });
 
-/*$('.minus-btn').on('click', function (e) {
-    e.preventDefault();
-    var $this = $(this);
-    var $input = $this.closest('div').find('input');
-    var value = parseInt($input.val());
-
-    if (value >=1) {
-    value = value - 1;
-} else {
-    value = 0;
-}
-
-$input.val(value);
- 
-});
-
-$('.plus-btn').on('click', function (e) {
-    e.preventDefault();
-    var $this = $(this);
-    var $input = $this.closest('div').find('input');
-    var value = parseInt($input.val());
-
-    if (value<100) {
-    value = value + 1;
-} else {
-    value = 100;
-}
-
-$input.val(value);
-});*/
-
 $(document).ready(function () {
 
     $('.radio-group .radio').click(function () {
@@ -74,8 +43,6 @@ function ChangeQuantity(event) {
     if (number == 0) {
         targetNum.parentElement.parentElement.remove();
     }
-    
-
     updateTotalPrice();
 }
 
@@ -108,7 +75,6 @@ function ChangeQuantityInDB(userId, productId, productQuantity) {
         },
         dataType: "json",
         success: function () {
-            alert("success")
         },
         error: function () {
             alert("error")
@@ -117,7 +83,7 @@ function ChangeQuantityInDB(userId, productId, productQuantity) {
 };
 
 function updateTotalPrice() {
-    let parent = document.getElementById("shopping-items");
+    let parent = document.getElementById("updateShoppingPrice");
     let subtotal = 0.0;
     for (let i = 0; i < parent.children.length; i++) {
         let unitPrice = parseFloat(parent.children[i].children[2].children[2].innerHTML.replace('$',''));

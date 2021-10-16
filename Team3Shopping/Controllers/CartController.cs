@@ -76,10 +76,37 @@ namespace Team3Shopping.Controllers
         }
 
         //Redirect to the purhase is been made page
-        public IActionResult PurchaseDone()
+
+        public IActionResult PurchaseDone(string UserId, string ProductId)
         {
+            Session session = GetSession();
+            if (session == null)
+            {
+                return RedirectToAction("Index", "Logout");
+            }
             //Do some validations of the payment method
-            //Omitted for brevity
+
+            //Update database
+            /*List<Cart> carts = dbContext.Carts.Where(x =>
+            x.UserId == session.UserId && x.AddToCartProductQuantity > 0).ToList();
+
+            if (carts != null)
+            {
+                return View("Unsuccessful");
+            }
+
+            foreach (Cart cart in carts)
+                dbContext.Add(new Purchase
+                {
+                    UserId = cart.UserId,
+                    PurchaseDate = DateTime.Now
+                });
+
+            List<Purchase> purchases = dbContext.Purchases.Where(x =>
+            x.Id != null && x.UserId == session.UserId).ToList();
+
+
+            dbContext.SaveChanges();*/
             return View();
         }
 
