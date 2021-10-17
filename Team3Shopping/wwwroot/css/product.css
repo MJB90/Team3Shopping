@@ -1,0 +1,37 @@
+﻿body {
+}
+
+.card-footer {
+}
+
+.fw-bolder {
+    font-weight: bolder !important
+}
+
+.star-ratings {
+    unicode-bidi: bidi-override;
+    font-size: 32px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.fill-ratings {
+    color: #e7711b;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+
+
+.empty-ratings {
+    color: #ccc;
+    padding: 0;
+    display: block;
+    z-index: 0;
+}

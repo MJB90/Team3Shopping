@@ -16,6 +16,7 @@
     flex-direction: column;
     min-width: 0;
     max-width: 219px;
+    min-height: 305px;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
@@ -41,8 +42,11 @@
 }
 .card-footer {
     padding: 0.5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: rgba(0, 0, 0, 0.00);
     border-top: 1px solid rgba(0, 0, 0, 0.125);
+    position:absolute;
+    bottom:0px;
+    align-self:center;
 }
 .display-4 {
     font-size: calc(1.475rem + 2.7vw);

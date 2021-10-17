@@ -4,18 +4,145 @@
 
 @{
     Product thisProduct = (Product)ViewData["thisProduct"];
+    List<ProductReview> reviewList = (List<ProductReview>)ViewData["reviewList"];
+    int reviewCount = (int)ViewData["reviewCount"];
+    double avgRatings = (double)ViewData["avgRatings"];
+    double ratingPct = 20 * avgRatings;
+
 }
 
 @section Scripts {
     <script src="~/js/Gallery.js"></script>
 }
+@section Css{
+    <link href="~/css/product.css" rel="stylesheet" />
+}
 
-<h1> @thisProduct.ProductName </h1>
-<p> <strong> Product Description: </strong> @thisProduct.ProductDesc</p>
-<p> $@thisProduct.ProductPrice</p>
+<div class="container">
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                @*product image*@
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="@thisProduct.ProductImage" alt="..." />
+                        <!-- Product details-->
+                        <!-- Product actions-->
+
+                        <div class="text-center"></div>
+
+                    </div>
+                </div>
 
 
-<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-    <div class="text-center"><button type="button" id=@thisProduct.Id class="addtocart_btn">Add to Cart </button></div>
+
+                @*purchase info*@
+            <div class="col mb-5">
+                <h1> @thisProduct.ProductName </h1>
+                <p style="font-size:20px"> $@thisProduct.ProductPrice</p>
+
+                
+                <div style="font-size:14px;"><b>(@avgRatings)</b>  @reviewCount reviews <br /></div>
+
+                <div class="col star-ratings">
+                    <div class="fill-ratings" style="width: @ratingPct %;">
+                        <span>★★★★★</span>
+                    </div>
+                    <div class="empty-ratings">
+                        <span>★★★★★</span>
+                    </div>
+                </div>
+                </br>
+
+
+
+                <p> <strong> Product Description: </strong><br /> @thisProduct.ProductDesc</p>
+
+            </div>
+
+            </div>
+            @*review*@
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5">
+                    <div>
+
+                        <div class="text-center card h-100">
+
+                            <h5 class="fw-bolder">Product Reviews</h5>
+
+
+                        </div>
+                        </br>
+
+                        @foreach (ProductReview review in reviewList)
+
+                        {
+                            double reviewPct = 20 * review.Rating;
+                    <div>
+
+                        <h6><b>@review.UserId</b> on @review.Timestamp <i>says:</i> </h6>
+
+                            <div class="star-ratings">
+                            <div class="fill-ratings" style="width: @reviewPct%;">
+                                <span>★★★★★</span>
+                            </div>
+                            <div class="empty-ratings">
+                                <span>★★★★★</span>
+                            </div>
+                            </div>
+
+
+                        <h6 class="fw-bolder">@review.ReviewText</h6>
+                        <h5></h5>
+                    </div><br />
+                        }
+                    </div>
+                    <!-- Product actions-->
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="align-content-center">
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><button type="button" id=@thisProduct.Id class="addtocart_btn">Add to Cart </button></div>
+            </div>
+        </div>
+    </section>
 </div>
 
+<style>
+
+    .star-ratings {
+        unicode-bidi: bidi-override;
+        font-size: 16px;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        width:66.65px;
+    }
+
+    .fill-ratings {
+        color: #e7711b;
+        padding: 0;
+        position: absolute;
+        z-index: 1;
+        display: block;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+    }
+
+
+
+    .empty-ratings {
+        color: #ccc;
+        padding: 0;
+        display: block;
+        z-index: 0;
+        width:66.65px;
+    }
+</style>

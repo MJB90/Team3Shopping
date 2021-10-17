@@ -90,7 +90,7 @@ namespace Team3Shopping.Controllers
 
             ViewData["reviewList"] = reviewList;
             ViewData["reviewCount"] = reviewCount;
-            ViewData["avgRatings"] = avgRatings;
+            ViewData["avgRatings"] = Math.Round(avgRatings,1);
             ViewData["thisProduct"] = thisProduct;
 
             return View();
