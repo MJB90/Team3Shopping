@@ -3,7 +3,8 @@
     List<Dictionary<Product, int>> allProdList = (List<Dictionary<Product, int>>)ViewData["allProdList"];
     @*List<List<Product>> allProductList = (List<List<Product>>)ViewData["allProductList"];
     List<Purchase> purchaseList = (List<Purchase>)ViewData["purchases"];*@
-    @*List<PurchaseProduct> purProdList = (List<PurchaseProduct>)ViewData[];*@
+    @*List<PurchaseProduct> purProdList = (List<PurchaseProduct>)ViewData[];
+     test@*
     @*List<Product> productList = (List<Product>)ViewData["productList"];*@
     List<string> activationCodeList = (List<string>)ViewData["activationCodes"];
     List<List<string>> allActCodeList = (List<List<string>>)ViewData["allActCodeList"];
@@ -32,7 +33,7 @@
                             <div class="col mb-5">
                                 <div class="card h-100">
                                     <!-- Product image-->
-                                    <img class="card-img-top" src="" />
+                                    <img style="height:100px "class="card-img-top" src="@prod.Key.ProductImage" alt="..."/>
                                     <!-- Product details-->
                                     <div class="card-body p-4">
                                         <div class="text-center">
@@ -51,28 +52,30 @@
                                     </div>
                                 </div>
                             </div>
-
-                            @*activation code*@
-
-                            <div class="col mb-5" , style="text-align:center">
-                                <select class="custom-select" , style="text-align:center">
-                                    <option selected>Activation Code</option>
-                                    @{ foreach (string activationCode in activationCodeList)
-                                        {
-                                            <option value="@activationCode">@activationCode</option>
-
-                                        }
-                                    }
-                                </select>
-                            </div>
-
-                            @*purchase info*@
                             <div class="col mb-5">
-                                Purchased On: purchase.PurchaseDate <br />
-                                Quantity: @prod.Value<br />
-                                $@prod.Key.ProductPrice <br />
                             </div>
-                        </div>
+                                @*activation code*@
+
+                                <div class="col mb-5" , style="text-align:center">
+                                    <select class="custom-select" , style="text-align:center">
+                                        <option selected>Activation Code</option>
+                                        @{
+                                            foreach (string activationCode in activationCodeList)
+                                            {
+                                                <option value="@activationCode">@activationCode</option>
+
+                                            }
+                                        }
+                                    </select>
+                                </div>
+
+                                @*purchase info*@
+                                <div class="col mb-5">
+                                    Purchased On: purchase.PurchaseDate <br/>
+                                    Quantity: @prod.Value<br/>
+                                    $@prod.Key.ProductPrice <br/>
+                                </div>
+                            </div>
                     }
                 }
             }
