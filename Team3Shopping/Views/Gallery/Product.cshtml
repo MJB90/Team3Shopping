@@ -43,7 +43,7 @@
                 <h1> @thisProduct.ProductName </h1>
                 <p style="font-size:20px"> $@thisProduct.ProductPrice</p>
 
-                
+
                 <div style="font-size:14px;"><b>(@avgRatings)</b>  @reviewCount reviews <br /></div>
 
                 <div class="col star-ratings">
@@ -60,6 +60,10 @@
 
                 <p> <strong> Product Description: </strong><br /> @thisProduct.ProductDesc</p>
 
+                <div style="background-color: white">
+                    <div class="text-center"><button type="button" id=@thisProduct.Id class="addtocart_btn">Add to Cart </button></div>
+                </div>
+
             </div>
 
             </div>
@@ -75,6 +79,8 @@
 
                         </div>
                         </br>
+                        @if (reviewList.Count() > 0)
+                        {
 
                         @foreach (ProductReview review in reviewList)
 
@@ -98,6 +104,15 @@
                         <h5></h5>
                     </div><br />
                         }
+                        }
+                        else
+                        { 
+                            <div> This product currently has no reviews. </div>
+                        }
+
+
+
+
                     </div>
                     <!-- Product actions-->
 
@@ -106,11 +121,7 @@
 
             </div>
         </div>
-        <div class="align-content-center">
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><button type="button" id=@thisProduct.Id class="addtocart_btn">Add to Cart </button></div>
-            </div>
-        </div>
+
     </section>
 </div>
 
