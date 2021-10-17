@@ -40,6 +40,8 @@ namespace Team3Shopping.Controllers
 
             // list of dicts, key = product object, value = quantity
             List<Dictionary<Product, int>> allProdList = new List<Dictionary<Product, int>>();
+            // list of dicts, key = purchase object, value =
+            //List<Dictionary<Purchase, int> allPurList = new List<>
             List<PurchaseProduct> purProdList = new List<PurchaseProduct>();
 
             foreach (Purchase p in purchaseList)
@@ -64,6 +66,8 @@ namespace Team3Shopping.Controllers
                         allProdList[i].Add(dbContext.Products.FirstOrDefault(x =>
                       x.Id == pp.ProductId), 1);
                     }
+
+                    activationCodeList.Add(pp.ProductActivationCode.ToString());
                 }
                 i++;                
             }
