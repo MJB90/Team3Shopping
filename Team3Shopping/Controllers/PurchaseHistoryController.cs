@@ -28,21 +28,19 @@ namespace Team3Shopping.Controllers
 
             string userId = thisUser.Id;
 
-
             // obtain list of all purchases            
             List<Purchase> purchaseList = dbContext.Purchases.Where(x =>
                 x.UserId == userId).ToList();
 
-            //List<List<string>> allActCodeList = new List<List<string>>();
-            List<string> activationCodeList = new List<string>();
-            //List<List<int>> allQuantity = new List<List<int>>();
-            int i = 0;
+            // initialize list of dicts to store prod data, key = product object, value = quantity
+            List<Dictionary<Product, int>> allProdList = new List<Dictionary<Product, int>>();                     
 
-            // list of dicts, key = product object, value = quantity
-            List<Dictionary<Product, int>> allProdList = new List<Dictionary<Product, int>>();
-            // list of dicts, key = purchase object, value =
-            //List<Dictionary<Purchase, int> allPurList = new List<>
-            List<PurchaseProduct> purProdList = new List<PurchaseProduct>();
+            List<PurchaseProduct> purProdList = new List<PurchaseProduct>();            
+            List<string> activationCodeList = new List<string>();
+            List<string> purchaseDatesList = new List<string>();
+
+            // to track which transaction (purchase) we are looking at in allProdList during iteration of purchaseList
+            int i = 0;
 
             foreach (Purchase p in purchaseList)
             {
@@ -68,14 +66,14 @@ namespace Team3Shopping.Controllers
                     }
 
                     activationCodeList.Add(pp.ProductActivationCode.ToString());
+                    purchaseDatesList.Add(p.PurchaseDate.ToString());
                 }
                 i++;                
             }
 
-            ViewData["allProdList"] = allProdList;
-            //ViewData["allActCodeList"] = allActCodeList;            
-            //ViewData["purchases"] = purchaseList;
-            ViewData["activationCodes"] = activationCodeList;
+            ViewData["allProdList"] = allProdList;            
+            ViewData["activationCodeList"] = activationCodeList;
+            ViewData["purchaseDatesList"] = purchaseDatesList;
             //ViewData["quantity"] = activationCodeList.Count;
             return View();
         }
