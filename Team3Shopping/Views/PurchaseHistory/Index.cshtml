@@ -23,12 +23,14 @@
     <section class="py-5">
         <div class="container">
             @{
-                foreach (Dictionary<Product, int> prodList in allProdList)
-                {
-                    foreach (KeyValuePair<Product, int> prod in prodList)
+                    int i = 0;
+                    foreach (Dictionary<Product, int> prodList in allProdList)
                     {
-                        <!--1-->
-                        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        foreach (KeyValuePair<Product, int> prod in prodList)
+                        {
+                            <!--1-->
+    
+                            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                             @*product image & description*@
                             <div class="col mb-5">
                                 <div class="card h-100">
@@ -60,11 +62,12 @@
                                     <select class="custom-select" , style="text-align:center">
                                         <option selected>Activation Code</option>
                                         @{
-                                            foreach (string activationCode in activationCodeList)
+                                            for (int j = 0; j < prod.Value; j++)
                                             {
-                                                <option value="@activationCode">@activationCode</option>
-
+                                                <option value="@activationCodeList[i]">@activationCodeList[i]</option>
+                                                i++;
                                             }
+
                                         }
                                     </select>
                                 </div>
