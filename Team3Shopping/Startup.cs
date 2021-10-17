@@ -62,7 +62,7 @@ namespace Team3Shopping
                 DB db = new DB(dbContext);
                 db.Seed();
             }
-            else
+
             
             app.UseMiddleware<NavigationBar>();
 

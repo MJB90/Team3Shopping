@@ -12,7 +12,6 @@
             cartCount = (string)Context.Items["cartCount"].ToString(); //but this is ok on second and third logins
     }
 
-
  }
 
 <!DOCTYPE html>
@@ -33,7 +32,7 @@
     <header>
 
         <!--Navbar-->
-        @if (Context.Request.Cookies["SessionId"] != null)
+        @if (Context.Request.Cookies["SessionId"] != null && thisUser != null)
         {
             <nav class="navbar navbar-toggleable-md navbar-dark">
                 <div class="container">

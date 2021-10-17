@@ -27,28 +27,19 @@ namespace Team3Shopping.Controllers
 
         public IActionResult Index(string searchString)
         {
-            //get current User, currently set to null.
-            User thisUser = dBContext.Users.FirstOrDefault(x => x.Id == "test@hotmail.com");
-
-            //For first access, to change null into empty string to show all product
-            if (searchString == null) { searchString = ""; }
-
-            //check if the session is valid-->need to be checked when merge with login
-            /*
-             * string thisUsername = HttpContext.Session.GetString("username");
-             string thisSessionId = HttpContext.Session.GetString("sessionId");
-             if (thisSessionId == null)
-             {
-                 return RedirectToAction("Login", "Home");
-             }
-             */
-
             //--- manas code
-            Session session = utility.GetSession(Request);
-            if (session == null)
+            Session thisSession = utility.GetSession(Request);
+            if (thisSession == null)
             {
                 return RedirectToAction("Index", "Login");
             }
+
+
+            if (searchString == null) { searchString = ""; }
+
+            User thisUser = dBContext.Users.FirstOrDefault(x => x.Id == thisSession.UserId); //get the user object in DB from current session object
+
+
             //to make a product list which contain search string in either name, desc, category
             List<Product> products = dBContext.Products.Where(x =>
                x.ProductName.Contains(searchString)||
