@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -32,50 +33,48 @@ namespace Team3Shopping.Controllers
             List<Purchase> purchaseList = dbContext.Purchases.Where(x =>
                 x.UserId == userId).ToList();
 
-            List<List<Product>> allProductList = new List<List<Product>>();
-            List<PurchaseProduct> purProdList = new List<PurchaseProduct>();
-            //List<Product> productList = new List<Product>();
-            List<List<string>> allActCodeList = new List<List<string>>();
+            //List<List<string>> allActCodeList = new List<List<string>>();
             List<string> activationCodeList = new List<string>();
+            //List<List<int>> allQuantity = new List<List<int>>();
             int i = 0;
+
+            // list of dicts, key = product object, value = quantity
+            List<Dictionary<Product, int>> allProdList = new List<Dictionary<Product, int>>();
+            List<PurchaseProduct> purProdList = new List<PurchaseProduct>();
 
             foreach (Purchase p in purchaseList)
             {
                 purProdList = dbContext.PurchaseProducts.Where(x =>
                  x.PurchaseId == p.Id).ToList();
 
-                allProductList.Add(new List<Product>());
-                allActCodeList.Add(new List<string>());
+                allProdList.Add(new Dictionary<Product, int>());
 
                 foreach (PurchaseProduct pp in purProdList)
-                {                    
-                    allProductList[i].Add(dbContext.Products.FirstOrDefault(x =>
-                   x.Id == pp.ProductId));
-                    allActCodeList[i]. Add(pp.ProductActivationCode.ToString());
-                    
+                {
+                    // if key (ie product) found, increment value by 1
+                    if (allProdList[i].ContainsKey(dbContext.Products.FirstOrDefault(x =>
+                      x.Id == pp.ProductId)))
+                    {
+                        allProdList[i][dbContext.Products.FirstOrDefault(x =>
+                      x.Id == pp.ProductId)] += 1;
+                    }
+                    else
+                    {
+                        // if key (ie product) not found, add product object to dictionary, with value 1
+                        allProdList[i].Add(dbContext.Products.FirstOrDefault(x =>
+                      x.Id == pp.ProductId), 1);
+                    }
                 }
-                i++;
-
-                
-                //if (purProdList != null)
-                //{
-                //    purProdList.Add(purProd);
-                //}
+                i++;                
             }
 
-            ViewData["allProductList"] = allProductList;
-            ViewData["allActCodeList"] = allActCodeList;
-            //ViewData["productList"] = productList;
-            ViewData["purchases"] = purchaseList;
+            ViewData["allProdList"] = allProdList;
+            //ViewData["allActCodeList"] = allActCodeList;            
+            //ViewData["purchases"] = purchaseList;
             ViewData["activationCodes"] = activationCodeList;
-            ViewData["quantity"] = activationCodeList.Count;
+            //ViewData["quantity"] = activationCodeList.Count;
             return View();
         }
-
-        public IActionResult Test()
-        {
-            ViewData["Title"] = "My Purchase";
-            return View();
-        }
+      
     }
 }

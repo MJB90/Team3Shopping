@@ -1,13 +1,13 @@
 ﻿@{
     ViewData["title"] = "My Purchase History";
-
-    List<List<Product>> allProductList = (List<List<Product>>)ViewData["allProductList"];
-    List<Purchase> purchaseList = (List<Purchase>)ViewData["purchases"];
+    List<Dictionary<Product, int>> allProdList = (List<Dictionary<Product, int>>)ViewData["allProdList"];
+    @*List<List<Product>> allProductList = (List<List<Product>>)ViewData["allProductList"];
+    List<Purchase> purchaseList = (List<Purchase>)ViewData["purchases"];*@
     @*List<PurchaseProduct> purProdList = (List<PurchaseProduct>)ViewData[];*@
     @*List<Product> productList = (List<Product>)ViewData["productList"];*@
     List<string> activationCodeList = (List<string>)ViewData["activationCodes"];
     List<List<string>> allActCodeList = (List<List<string>>)ViewData["allActCodeList"];
-int quantity = (int)ViewData["quantity"];
+    
 }
 @section Css{
     <link href="~/css/purchaseHistory.css" rel="stylesheet" />
@@ -22,9 +22,9 @@ int quantity = (int)ViewData["quantity"];
     <section class="py-5">
         <div class="container">
             @{
-                foreach (List<Product> productList in allProductList)
+                foreach (Dictionary<Product, int> prodList in allProdList)
                 {
-                    foreach (Product product in productList)
+                    foreach (KeyValuePair<Product, int> prod in prodList)
                     {
                         <!--1-->
                         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -37,9 +37,9 @@ int quantity = (int)ViewData["quantity"];
                                     <div class="card-body p-4">
                                         <div class="text-center">
                                             <!-- Product name-->
-                                            <h5 class="fw-bolder">@product.ProductName</h5>
+                                            <h5 class="fw-bolder">@prod.Key.ProductName</h5>
                                             <!-- Product description-->
-                                            @product.ProductDesc
+                                            @prod.Key.ProductDesc
                                         </div>
                                     </div>
                                     <!-- Product actions-->
@@ -59,7 +59,8 @@ int quantity = (int)ViewData["quantity"];
                                     <option selected>Activation Code</option>
                                     @{ foreach (string activationCode in activationCodeList)
                                         {
-                                            <option value="@activationCode">@activationCode</option>                                            
+                                            <option value="@activationCode">@activationCode</option>
+
                                         }
                                     }
                                 </select>
@@ -68,8 +69,8 @@ int quantity = (int)ViewData["quantity"];
                             @*purchase info*@
                             <div class="col mb-5">
                                 Purchased On: purchase.PurchaseDate <br />
-                                Quantity: quantity<br />
-                                $@product.ProductPrice <br />
+                                Quantity: @prod.Value<br />
+                                $@prod.Key.ProductPrice <br />
                             </div>
                         </div>
                     }
