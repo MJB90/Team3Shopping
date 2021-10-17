@@ -1,14 +1,10 @@
 ﻿@{
     ViewData["title"] = "My Purchase History";
     List<Dictionary<Product, int>> allProdList = (List<Dictionary<Product, int>>)ViewData["allProdList"];
-    @*List<List<Product>> allProductList = (List<List<Product>>)ViewData["allProductList"];
-    List<Purchase> purchaseList = (List<Purchase>)ViewData["purchases"];*@
-    @*List<PurchaseProduct> purProdList = (List<PurchaseProduct>)ViewData[];
-     test@*
-    @*List<Product> productList = (List<Product>)ViewData["productList"];*@
-    List<string> activationCodeList = (List<string>)ViewData["activationCodes"];
-    List<List<string>> allActCodeList = (List<List<string>>)ViewData["allActCodeList"];
-    
+    List<string> activationCodeList = (List<string>)ViewData["activationCodeList"];
+    List<string> purchaseDatesList = (List<string>)ViewData["purchaseDatesList"];
+
+
 }
 @section Css{
     <link href="~/css/purchaseHistory.css" rel="stylesheet" />
@@ -23,19 +19,18 @@
     <section class="py-5">
         <div class="container">
             @{
-                    int i = 0;
-                    foreach (Dictionary<Product, int> prodList in allProdList)
+                int i = 0;
+                foreach (Dictionary<Product, int> prodList in allProdList)
+                {
+                    foreach (KeyValuePair<Product, int> prod in prodList)
                     {
-                        foreach (KeyValuePair<Product, int> prod in prodList)
-                        {
-                            <!--1-->
-    
-                            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        <!--1-->
+                        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                             @*product image & description*@
                             <div class="col mb-5">
                                 <div class="card h-100">
                                     <!-- Product image-->
-                                    <img style="height:100px "class="card-img-top" src="@prod.Key.ProductImage" alt="..."/>
+                                    <img style="height:100px " class="card-img-top" src="@prod.Key.ProductImage" alt="..." />
                                     <!-- Product details-->
                                     <div class="card-body p-4">
                                         <div class="text-center">
@@ -56,29 +51,33 @@
                             </div>
                             <div class="col mb-5">
                             </div>
-                                @*activation code*@
 
-                                <div class="col mb-5" , style="text-align:center">
-                                    <select class="custom-select" , style="text-align:center">
-                                        <option selected>Select Activation Code...</option>
-                                        @{
-                                            for (int j = 0; j < prod.Value; j++)
-                                            {
-                                                <option value="@activationCodeList[i]">@activationCodeList[i]</option>
-                                                i++;
-                                            }
-
-                                        }
-                                    </select>
-                                </div>
-
-                                @*purchase info*@
-                                <div class="col mb-5">
-                                    Purchased On: purchase.PurchaseDate <br/>
-                                    Quantity: @prod.Value<br/>
-                                    $@prod.Key.ProductPrice <br/>
-                                </div>
+                            @*purchase info*@
+                            <div class="col mb-5">
+                                Purchased On: @purchaseDatesList[i] <br />
+                                Quantity: @prod.Value<br />
+                                $@prod.Key.ProductPrice <br />
                             </div>
+
+                            @*activation code*@
+
+                            <div class="col mb-5" , style="text-align:center">
+                                <select class="custom-select" , style="text-align:center">
+                                    <option selected>Select Activation Code...</option>
+                                    @{
+                                        for (int j = 0; j < prod.Value; j++)
+                                        {
+                                            <option value="@activationCodeList[i]">@activationCodeList[i]</option>
+                                            i++;
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+
+
                     }
                 }
             }
